@@ -1,0 +1,16 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-3">
+                <span class="keyword-rank">{{keyword.rank}}. {{keyword.name}}</span>
+            </div>
+            <div class="col-sm-9">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped active" ng-class="trends.getProgressClass(keyword.trendsVal)" role="progressbar" aria-valuenow="{{keyword.trendsVal}}" aria-valuemin="0" aria-valuemax="100" style="width: {{keyword.trendsVal}}%">
+                        {{keyword.trendsVal}} %
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

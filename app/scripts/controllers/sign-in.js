@@ -8,6 +8,32 @@
  * Controller of the SportsGeeksApp
  */
 angular.module('SportsGeeksApp')
-    .controller('SignInCtrl', ['States', function (States) {
+    .controller('SignInCtrl', ['$http', '$location', 'Config', 'States', function ($http, $location, Config, States) {
         States.setCurrentPage(7);
+        this.user = {};
+        var store = this;
+        this.login = function () {
+            $http({
+                    url: Config.url + 'login',
+                    method: 'POST',
+                    params: {
+                        apiKey: Config.apiKey
+                    },
+                    data: {
+                        username: store.user.username,
+                        password: store.user.password
+                    }
+                })
+                .then(function (res) {
+                    console.log('Successfully logged in!');
+                    store.status = res.data;
+                    console.log(store.status);
+                    $location.path('/');
+                }, function (res) {
+                    console.log('Error while login!');
+                    store.status = res.data;
+                    console.log(store.status);
+                    store.user = {};
+                });
+        };
     }]);

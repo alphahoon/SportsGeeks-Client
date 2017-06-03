@@ -20,10 +20,23 @@ angular.module('SportsGeeksApp')
                     }
                 })
                 .then(function (res) {
-                    store.trends = res;
+                    store.trends = res.data.trends;
                     console.log(store.trends);
                 }, function (res) {
-                    console.log(res);
+                    console.log('Error while retrieving trends!');
+                    console.log(res.data);
                 });
+        };
+        this.getTrends();
+        this.getProgressClass = function (value) {
+            if (value >= 75) {
+                return 'progress-bar-danger';
+            } else if (value >= 50) {
+                return 'progress-bar-warning';
+            } else if (value >= 25) {
+                return 'progress-bar-success';
+            } else if (value >= 0) {
+                return 'progress-bar-info';
+            }
         };
     }]);
