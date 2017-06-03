@@ -10,4 +10,10 @@
 angular.module('SportsGeeksApp')
     .controller('MainCtrl', ['States', function (States) {
         States.setCurrentPage(1);
+        this.isLoggedIn = function () {
+            return States.isLoggedIn();
+        };
+        this.username = function () {
+            return States.username();
+        };
     }]);

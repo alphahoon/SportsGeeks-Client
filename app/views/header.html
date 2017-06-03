@@ -15,22 +15,28 @@
                     <li ng-class="{active:header.isCurrentPage(1)}">
                         <a href="#/" ng-click="header.setCurrentPage(1)">Today's Match</a>
                     </li>
-                    <li ng-class="{active:header.isCurrentPage(2)}">
+                    <li ng-show="header.isLoggedIn()" ng-class="{active:header.isCurrentPage(2)}">
                         <a ng-href="#/calendar" ng-click="header.setCurrentPage(2)">Calendar</a>
                     </li>
-                    <li ng-class="{active:header.isCurrentPage(3)}">
+                    <li ng-show="header.isLoggedIn()" ng-class="{active:header.isCurrentPage(3)}">
                         <a ng-href="#/standings" ng-click="header.setCurrentPage(3)">Standings</a>
                     </li>
-                    <li ng-class="{active:header.isCurrentPage(4)}">
+                    <li ng-show="header.isLoggedIn()" ng-class="{active:header.isCurrentPage(4)}">
                         <a ng-href="#/news" ng-click="header.setCurrentPage(4)">News</a>
                     </li>
-                    <li ng-class="{active:header.isCurrentPage(5)}">
+                    <li ng-show="header.isLoggedIn()" ng-class="{active:header.isCurrentPage(5)}">
                         <a ng-href="#/trends" ng-click="header.setCurrentPage(5)">Trends</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#/sign-up" ng-click="header.setCurrentPage(6)">Sign Up</a></li>
-                    <li><a href="#/sign-in" ng-click="header.setCurrentPage(7)">Sign In</a></li>
+                    <li ng-hide="header.isLoggedIn()" ng-class="{active:header.isCurrentPage(6)}">
+                        <a href="#/sign-up" ng-click="header.setCurrentPage(6)">Sign Up</a></li>
+                    <li ng-hide="header.isLoggedIn()" ng-class="{active:header.isCurrentPage(7)}">
+                        <a href="#/sign-in" ng-click="header.setCurrentPage(7)">Sign In</a></li>
+                    <li ng-show="header.isLoggedIn()" ng-class="{active:header.isCurrentPage(8)}">
+                        <a href="#/my-page" ng-click="header.setCurrentPage(8)">{{header.username()}}</a></li>
+                    <li ng-show="header.isLoggedIn()">
+                        <a href="#" ng-click="header.logout()">Sign Out</a></li>
                     <li>
                         <a role="button" class="dropdown" data-toggle="dropdown" aria-haspopup="true" ara-expanded="false">
                             <span class="glyphicon glyphicon-cog"></span>

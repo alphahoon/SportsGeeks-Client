@@ -1,6 +1,9 @@
-<h1>Top 30 Trending Keywords</h1>
-<h5>This data has been collected by crawling the <a href="https://trends.google.com/trends/">Google Trends</a>.</h5>
-<h3 class="lastUpdate">
-    Last updated at: <i>{{trends.trends[0].updated | date: "EEEE, MMMM d, y 'at' h:mma"}}</i>
-</h3>
-<rank ng-repeat="keyword in trends.trends | orderObjectBy:'rank'"></rank>
+<p ng-hide="trends.isLoggedIn()">Unauthorized Access</p>
+<div ng-show="trends.isLoggedIn()">
+    <h1>Top 30 Trending Keywords</h1>
+    <h5>This data has been collected by crawling the <a href="https://trends.google.com/trends/">Google Trends</a>.</h5>
+    <h3 class="lastUpdate">
+        Last updated at: <i>{{trends.trends[0].updated | date: "EEEE, MMMM d, y 'at' h:mma"}}</i>
+    </h3>
+    <rank ng-repeat="keyword in trends.trends | orderObjectBy:'rank'"></rank>
+</div>

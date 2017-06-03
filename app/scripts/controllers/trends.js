@@ -10,6 +10,12 @@
 angular.module('SportsGeeksApp')
     .controller('TrendsCtrl', ['$http', 'Config', 'States', function ($http, Config, States) {
         States.setCurrentPage(5);
+        this.isLoggedIn = function () {
+            return States.isLoggedIn();
+        };
+        this.username = function () {
+            return States.username();
+        };
         var store = this;
         this.getTrends = function () {
             $http({

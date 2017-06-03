@@ -1,0 +1,5 @@
+<p ng-hide="myPage.isLoggedIn()">Unauthorized Access</p>
+<div ng-show="myPage.isLoggedIn()">
+    <h1>My Account Settings</h1>
+    <p ng-show="myPage.isLoggedIn()">Hello! {{myPage.username()}}</p>
+</div>

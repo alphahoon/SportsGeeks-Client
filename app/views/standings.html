@@ -1,1 +1,4 @@
-<p>This is the standings view.</p>
+<p ng-hide="standings.isLoggedIn()">Unauthorized Access</p>
+<div ng-show="standings.isLoggedIn()">
+    <h1>League Standings</h1>
+</div>
