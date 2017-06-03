@@ -8,4 +8,6 @@
  * Controller of the SportsGeeksApp
  */
 angular.module('SportsGeeksApp')
-  .controller('SignInCtrl', function () {});
+    .controller('SignInCtrl', ['States', function (States) {
+        States.setCurrentPage(7);
+    }]);

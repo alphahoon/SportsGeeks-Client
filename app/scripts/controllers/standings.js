@@ -8,4 +8,6 @@
  * Controller of the SportsGeeksApp
  */
 angular.module('SportsGeeksApp')
-  .controller('StandingsCtrl', function () {});
+    .controller('StandingsCtrl', ['States', function (States) {
+        States.setCurrentPage(3);
+    }]);

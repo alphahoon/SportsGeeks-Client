@@ -9,54 +9,54 @@
  * Main module of the application.
  */
 angular
-  .module('SportsGeeksApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch'
-  ])
-  .config(function ($routeProvider, $locationProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
-      })
-      .when('/calendar', {
-        templateUrl: 'views/calendar.html',
-        controller: 'CalendarCtrl',
-        controllerAs: 'calendar'
-      })
-      .when('/standings', {
-        templateUrl: 'views/standings.html',
-        controller: 'StandingsCtrl',
-        controllerAs: 'standings'
-      })
-      .when('/news', {
-        templateUrl: 'views/news.html',
-        controller: 'NewsCtrl',
-        controllerAs: 'news'
-      })
-      .when('/trends', {
-        templateUrl: 'views/trends.html',
-        controller: 'TrendsCtrl',
-        controllerAs: 'trends'
-      })
-      .when('/sign-in', {
-        templateUrl: 'views/sign-in.html',
-        controller: 'SignInCtrl',
-        controllerAs: 'signIn'
-      })
-      .when('/sign-up', {
-        templateUrl: 'views/sign-up.html',
-        controller: 'SignUpCtrl',
-        controllerAs: 'signUp'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
+    .module('SportsGeeksApp', [
+        'ngAnimate',
+        'ngCookies',
+        'ngResource',
+        'ngRoute',
+        'ngSanitize',
+        'ngTouch'
+    ])
+    .config(function ($routeProvider, $locationProvider) {
+        $routeProvider
+            .when('/', {
+                templateUrl: 'views/main.html',
+                controller: 'MainCtrl',
+                controllerAs: 'main'
+            })
+            .when('/calendar', {
+                templateUrl: 'views/calendar.html',
+                controller: 'CalendarCtrl',
+                controllerAs: 'calendar'
+            })
+            .when('/standings', {
+                templateUrl: 'views/standings.html',
+                controller: 'StandingsCtrl',
+                controllerAs: 'standings'
+            })
+            .when('/news', {
+                templateUrl: 'views/news.html',
+                controller: 'NewsCtrl',
+                controllerAs: 'news'
+            })
+            .when('/trends', {
+                templateUrl: 'views/trends.html',
+                controller: 'TrendsCtrl',
+                controllerAs: 'trends'
+            })
+            .when('/sign-in', {
+                templateUrl: 'views/sign-in.html',
+                controller: 'SignInCtrl',
+                controllerAs: 'signIn'
+            })
+            .when('/sign-up', {
+                templateUrl: 'views/sign-up.html',
+                controller: 'SignUpCtrl',
+                controllerAs: 'signUp'
+            })
+            .otherwise({
+                redirectTo: '/'
+            });
 
-    $locationProvider.hashPrefix('');
-  });
+        $locationProvider.hashPrefix('');
+    });

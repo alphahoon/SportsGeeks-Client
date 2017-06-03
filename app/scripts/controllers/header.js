@@ -8,12 +8,11 @@
  * Controller of the SportsGeeksApp
  */
 angular.module('SportsGeeksApp')
-    .controller('HeaderCtrl', function () {
-        this.currentPage = 1;
+    .controller('HeaderCtrl', ['States', function (States) {
         this.isCurrentPage = function (page) {
-            return this.currentPage === page;
+            return States.isCurrentPage(page);
         };
-        this.setPageCursor = function (page) {
-            this.currentPage = page;
+        this.setCurrentPage = function (page) {
+            States.setCurrentPage(page);
         };
-    });
+    }]);
