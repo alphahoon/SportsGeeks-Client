@@ -22,12 +22,12 @@ angular.module('SportsGeeksApp')
                     url: Config.url + 'trends',
                     method: 'GET',
                     params: {
-                        apiKey: Config.apiKey
+                        apiKey: Config.apiKey,
+                        token: States.token()
                     }
                 })
                 .then(function (res) {
                     store.trends = res.data.trends;
-                    console.log(store.trends);
                 }, function (res) {
                     console.log('Error while retrieving trends!');
                     console.log(res.data);

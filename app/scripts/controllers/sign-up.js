@@ -25,9 +25,9 @@ angular.module('SportsGeeksApp')
                     }
                 })
                 .then(function (res) {
-                    console.log('Successfully registered!');
+                    // console.log('Successfully registered!');
                     store.status = res.data;
-                    console.log(store.status);
+                    // console.log(store.status);
                     $location.path('/sign-in');
                 }, function (res) {
                     console.log('Error while register!');

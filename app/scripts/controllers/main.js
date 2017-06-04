@@ -8,7 +8,7 @@
  * Controller of the SportsGeeksApp
  */
 angular.module('SportsGeeksApp')
-    .controller('MainCtrl', ['States', function (States) {
+    .controller('MainCtrl', ['$cookies', 'States', function ($cookies, States) {
         States.setCurrentPage(1);
         this.isLoggedIn = function () {
             return States.isLoggedIn();
