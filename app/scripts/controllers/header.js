@@ -8,7 +8,7 @@
  * Controller of the SportsGeeksApp
  */
 angular.module('SportsGeeksApp')
-    .controller('HeaderCtrl', ['$http', '$route', '$location', 'Config', 'States', function ($http, $route, $location, Config, States) {
+    .controller('HeaderCtrl', ['$http', '$route', '$location', 'Config', 'States', 'Translation', function ($http, $route, $location, Config, States, Translation) {
         var store = this;
         States.cookieLogin();
         this.isCurrentPage = function (page) {
@@ -46,5 +46,11 @@ angular.module('SportsGeeksApp')
                     $location.path('/');
                     $route.reload();
                 });
+        };
+        this.setLanguage = function (language) {
+            States.setLanguage(language);
+        };
+        this.tr = function (msg) {
+            return Translation.tr(msg, States.language());
         };
     }]);

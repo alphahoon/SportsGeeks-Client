@@ -1,4 +1,4 @@
-<p ng-hide="news.isLoggedIn()">Unauthorized Access</p>
+<p ng-hide="news.isLoggedIn()">{{news.tr('Unauthorized Access')}}</p>
 <div ng-show="news.isLoggedIn()">
-    <h1>News View</h1>
+    <h1>{{news.tr('News View')}}</h1>
 </div>

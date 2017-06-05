@@ -8,7 +8,7 @@
  * Controller of the SportsGeeksApp
  */
 angular.module('SportsGeeksApp')
-    .controller('TrendsCtrl', ['$http', 'Config', 'States', function ($http, Config, States) {
+    .controller('TrendsCtrl', ['$http', 'Config', 'States', 'Translation', function ($http, Config, States, Translation) {
         States.setCurrentPage(5);
         this.isLoggedIn = function () {
             return States.isLoggedIn();
@@ -44,5 +44,11 @@ angular.module('SportsGeeksApp')
             } else if (value >= 0) {
                 return 'progress-bar-info';
             }
+        };
+        this.date = function (date) {
+            return Translation.date(date, States.utcOffset(), States.language());
+        };
+        this.tr = function (msg) {
+            return Translation.tr(msg, States.language());
         };
     }]);

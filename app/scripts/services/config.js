@@ -13,4 +13,5 @@ angular.module('SportsGeeksApp')
         apiKey: 'LM7JDrHT2RyzzW5D',
         utcOffset: 9,
         language: 'en'
-    });
+    })
+    .constant('moment', moment);

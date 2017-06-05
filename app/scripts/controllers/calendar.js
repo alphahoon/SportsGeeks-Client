@@ -8,12 +8,15 @@
  * Controller of the SportsGeeksApp
  */
 angular.module('SportsGeeksApp')
-    .controller('CalendarCtrl', ['States', function (States) {
+    .controller('CalendarCtrl', ['States', 'Translation', function (States, Translation) {
         States.setCurrentPage(2);
         this.isLoggedIn = function () {
             return States.isLoggedIn();
         };
         this.username = function () {
             return States.username();
+        };
+        this.tr = function (msg) {
+            return Translation.tr(msg, States.language());
         };
     }]);

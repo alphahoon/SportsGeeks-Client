@@ -1,4 +1,4 @@
-<p ng-hide="calendar.isLoggedIn()">Unauthorized Access</p>
+<p ng-hide="calendar.isLoggedIn()">{{calendar.tr('Unauthorized Access')}}</p>
 <div ng-show="calendar.isLoggedIn()">
-    <h1>Match Schedules</h1>
+    <h1>{{calendar.tr('Match Schedules')}}</h1>
 </div>

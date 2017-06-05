@@ -8,7 +8,7 @@
  * Controller of the SportsGeeksApp
  */
 angular.module('SportsGeeksApp')
-    .controller('SignInCtrl', ['$http', '$location', 'Config', 'States', function ($http, $location, Config, States) {
+    .controller('SignInCtrl', ['$http', '$location', 'Config', 'States', 'Translation', function ($http, $location, Config, States, Translation) {
         States.setCurrentPage(7);
         this.user = {};
         var store = this;
@@ -25,14 +25,15 @@ angular.module('SportsGeeksApp')
                     }
                 })
                 .then(function (res) {
-                    console.log('Successfully logged in!');
+                    // console.log('Successfully logged in!');
                     store.status = res.data;
                     store.user.token = res.data.token;
                     store.user.email = res.data.email;
                     store.user.utcOffset = res.data.utcOffset;
                     store.user.language = res.data.language;
-                    console.log(store.status);
-                    States.login(store.user.username, store.user.password, store.user.token, store.user.email, store.user.utcOffset, store.user.language);
+                    store.user.date = res.data.date;
+                    // console.log(store.status);
+                    States.login(store.user.username, store.user.password, store.user.token, store.user.email, store.user.utcOffset, store.user.language, store.user.date);
                     $location.path('/');
                 }, function (res) {
                     console.log('Error while login!');
@@ -40,5 +41,8 @@ angular.module('SportsGeeksApp')
                     console.log(store.status);
                     store.user = {};
                 });
+        };
+        this.tr = function (msg) {
+            return Translation.tr(msg, States.language());
         };
     }]);

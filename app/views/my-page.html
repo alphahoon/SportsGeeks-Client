@@ -1,77 +1,96 @@
-<p ng-hide="myPage.isLoggedIn()">Unauthorized Access</p>
+<p ng-hide="myPage.isLoggedIn()">{{myPage.tr('Unauthorized Access')}}</p>
 <div ng-show="myPage.isLoggedIn()">
-    <h1>My Account Settings</h1>
-    <hr>
-    <h3>General User Information</h3>
-    <form>
-        <div class="row">
-            <div class="col-sm-5">
-                <div class="input-group">
-                  <span style="font-weight:bold">Username: </span>
-                  <span>{{myPage.username()}}</span>
+    <h1>{{myPage.tr('My Account Settings')}}</h1>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{myPage.tr('General Account Information')}}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <span style="font-weight:bold">{{myPage.tr('Username')}}: </span>
+                    <span>{{myPage.username()}}</span>
                 </div>
-            </div>
-            <div class="col-sm-5">
-                <div class="input-group">
-                    <span style="font-weight:bold">Email: </span>
+                <div class="col-sm-6">
+                    <span style="font-weight:bold">{{myPage.tr('Email')}}: </span>
                     <span>{{myPage.email()}}</span>
                 </div>
             </div>
-        </div>
-    </form>
-    <hr>
-    <h3>Change My Localization Settings</h3>
-    <form name="form" ng-submit="myPage.updateSettings()" role="form" novalidate>
-        <div class="row">
-            <div class="col-sm-5">
-                <div class="form-group" ng-class="{ 'has-error': form.timezone.$dirty && form.timezone.$error.required }">
-                    <label for="timezone">Timezone</label>
-                    <select name="timezone" id="timezone" class="form-control" ng-model="myPage.user.utcOffset" convert-to-number required>
-                        <option value="-12" ng-selected="true">UTC-12:00</option>
-                        <option value="-11">UTC-11:00</option>
-                        <option value="-10">UTC-10:00</option>
-                        <option value="-9">UTC-09:00</option>
-                        <option value="-8">UTC-08:00</option>
-                        <option value="-7">UTC-07:00</option>
-                        <option value="-6">UTC-06:00</option>
-                        <option value="-5">UTC-05:00</option>
-                        <option value="-4">UTC-04:00</option>
-                        <option value="-3">UTC-03:00</option>
-                        <option value="-2">UTC-02:00</option>
-                        <option value="-1">UTC-01:00</option>
-                        <option value="0">UTC+00:00</option>
-                        <option value="1">UTC+01:00</option>
-                        <option value="2">UTC+02:00</option>
-                        <option value="3">UTC+03:00</option>
-                        <option value="4">UTC+04:00</option>
-                        <option value="5">UTC+05:00</option>
-                        <option value="6">UTC+06:00</option>
-                        <option value="7">UTC+07:00</option>
-                        <option value="8">UTC+08:00</option>
-                        <option value="9">UTC+09:00</option>
-                        <option value="10">UTC+10:00</option>
-                        <option value="11">UTC+11:00</option>
-                        <option value="12">UTC+12:00</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-5">
-                <div class="form-group" ng-class="{ 'has-error': form.language.$dirty && form.language.$error.required }">
-                    <label for="language">Language</label>
-                    <select name="language" id="language" class="form-control" ng-model="myPage.user.language" required>
-                        <option value="en">English</option>
-                        <option value="kr">Korean</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="form-actions">
-                    <label for="update">&nbsp;</label>
-                    <button ng-disabled="form.$invalid" type="submit" name="update" id="update" class="btn btn-success" style="width:100%">Update</button>
+            <div class="row">
+                <div class="col-sm-6">
+                    <span style="font-weight:bold">{{myPage.tr('Registered at')}}: </span>
+                    <span>{{myPage.date()}}</span>
                 </div>
             </div>
         </div>
-    </form>
-    <hr>
-    <button ng-click="myPage.deleteAccount()" class="btn btn-danger" style="float:right">Delete My Account</button>
+    </div>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{myPage.tr('My Localization Settings')}}</h3>
+        </div>
+        <div class="panel-body">
+            <form name="form" ng-submit="myPage.updateSettings()" role="form" novalidate>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="form-group" ng-class="{ 'has-error': form.timezone.$dirty && form.timezone.$error.required }">
+                            <label for="timezone">{{myPage.tr('Timezone')}}</label>
+                            <select name="timezone" id="timezone" class="form-control" ng-model="myPage.user.utcOffset" required>
+                                <option value=-12 ng-selected="true">UTC-12:00</option>
+                                <option value="-11">UTC-11:00</option>
+                                <option value="-10">UTC-10:00</option>
+                                <option value="-9">UTC-09:00</option>
+                                <option value="-8">UTC-08:00</option>
+                                <option value="-7">UTC-07:00</option>
+                                <option value="-6">UTC-06:00</option>
+                                <option value="-5">UTC-05:00</option>
+                                <option value="-4">UTC-04:00</option>
+                                <option value="-3">UTC-03:00</option>
+                                <option value="-2">UTC-02:00</option>
+                                <option value="-1">UTC-01:00</option>
+                                <option value="0">UTC+00:00</option>
+                                <option value="1">UTC+01:00</option>
+                                <option value="2">UTC+02:00</option>
+                                <option value="3">UTC+03:00</option>
+                                <option value="4">UTC+04:00</option>
+                                <option value="5">UTC+05:00</option>
+                                <option value="6">UTC+06:00</option>
+                                <option value="7">UTC+07:00</option>
+                                <option value="8">UTC+08:00</option>
+                                <option value="9">UTC+09:00</option>
+                                <option value="10">UTC+10:00</option>
+                                <option value="11">UTC+11:00</option>
+                                <option value="12">UTC+12:00</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group" ng-class="{ 'has-error': form.language.$dirty && form.language.$error.required }">
+                            <label for="language">{{myPage.tr('Language')}}</label>
+                            <select name="language" id="language" class="form-control" ng-model="myPage.user.language" required>
+                                <option value="en">{{myPage.tr('English')}}</option>
+                                <option value="kr">{{myPage.tr('Korean')}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-actions">
+                            <label for="update">&nbsp;</label>
+                            <button ng-disabled="form.$invalid" type="submit" name="update" id="update" class="btn btn-success" style="width:100%">{{myPage.tr('Update')}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{myPage.tr('My Preference Settings')}}</h3>
+        </div>
+        <div class="panel-body">
+
+        </div>
+    </div>
+    <div class="row" style="text-align:center">
+        <button ng-click="myPage.deleteAccount()" class="btn btn-danger">{{myPage.tr('Delete My Account')}}</button>
+    </div>
 </div>

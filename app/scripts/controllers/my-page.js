@@ -8,31 +8,26 @@
  * Controller of the SportsGeeksApp
  */
 angular.module('SportsGeeksApp')
-    .controller('MyPageCtrl', ['$http', '$location', 'Config', 'States', function ($http, $location, Config, States) {
+    .controller('MyPageCtrl', ['$http', '$location', 'Config', 'States', 'Translation', function ($http, $location, Config, States, Translation) {
         States.setCurrentPage(8);
         this.user = {
-            utcOffset: Config.utcOffset
+            utcOffset: States.utcOffset()
                 .toString(),
-            language: Config.language
+            language: States.language()
         };
         var store = this;
         this.isLoggedIn = function () {
             return States.isLoggedIn();
         };
-        this.username = function () {
-            return States.username();
-        };
         this.getUserSettings = function () {
-            setTimeout(function () {
-                store.user.utcOffset = States.utcOffset()
-                    .toString();
-                store.user.language = States.language();
-                $('#timezone')
-                    .val(States.utcOffset()
-                        .toString());
-                $('#language')
-                    .val(States.language());
-            }, 1000);
+            store.user.utcOffset = States.utcOffset()
+                .toString();
+            store.user.language = States.language();
+            $('#timezone')
+                .val(States.utcOffset()
+                    .toString());
+            $('#language')
+                .val(States.language());
         };
         this.updateSettings = function () {
             $http({
@@ -45,7 +40,7 @@ angular.module('SportsGeeksApp')
                     data: {
                         username: States.username(),
                         password: States.password(),
-                        utcOffset: store.user.utcOffset,
+                        utcOffset: parseInt(store.user.utcOffset),
                         language: store.user.language
                     }
                 })
@@ -54,6 +49,7 @@ angular.module('SportsGeeksApp')
                     store.status = res.data;
                     States.updateSettings(store.status.utcOffset, store.status.language);
                     console.log(store.status);
+                    store.getUserSettings();
                 }, function (res) {
                     console.log('Error while updating the localization settings!');
                     store.status = res.data;
@@ -79,9 +75,9 @@ angular.module('SportsGeeksApp')
                     }
                 })
                 .then(function (res) {
-                    console.log('Successfully deleted account!');
+                    // console.log('Successfully deleted account!');
                     store.status = res.data;
-                    console.log(store.status);
+                    // console.log(store.status);
                     $location.path('/');
                 }, function (res) {
                     console.log('Error while deleting account!');
@@ -95,6 +91,12 @@ angular.module('SportsGeeksApp')
         };
         this.email = function () {
             return States.email();
+        };
+        this.date = function () {
+            return Translation.date(States.date(), States.utcOffset(), States.language());
+        };
+        this.tr = function (msg) {
+            return Translation.tr(msg, States.language());
         };
         this.getUserSettings();
     }]);

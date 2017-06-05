@@ -8,7 +8,7 @@
  * Controller of the SportsGeeksApp
  */
 angular.module('SportsGeeksApp')
-    .controller('SignUpCtrl', ['$http', '$location', 'Config', 'States', function ($http, $location, Config, States) {
+    .controller('SignUpCtrl', ['$http', '$location', 'Config', 'States', 'Translation', function ($http, $location, Config, States, Translation) {
         States.setCurrentPage(6);
         const defaultSetting = {
             utcOffset: Config.utcOffset,
@@ -42,5 +42,8 @@ angular.module('SportsGeeksApp')
                     console.log(store.status);
                     store.user = defaultSetting;
                 });
+        };
+        this.tr = function (msg) {
+            return Translation.tr(msg, States.language());
         };
     }]);
