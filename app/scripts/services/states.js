@@ -15,6 +15,9 @@ angular.module('SportsGeeksApp')
         var username = null;
         var password = null;
         var token = null;
+        var email = null;
+        var utcOffset = Config.utcOffset;
+        var language = Config.language;
         var states = this;
 
         // Public API here
@@ -28,11 +31,14 @@ angular.module('SportsGeeksApp')
             isLoggedIn: function () {
                 return isLoggedIn;
             },
-            login: function (_username, _password, _token) {
+            login: function (_username, _password, _token, _email, _utcOffset, _language) {
                 if (!isLoggedIn) {
                     username = _username;
                     password = _password;
                     token = _token;
+                    email = _email;
+                    utcOffset = _utcOffset;
+                    language = _language;
                     isLoggedIn = true;
                     $cookies.put('username', username);
                     $cookies.put('password', password);
@@ -47,6 +53,9 @@ angular.module('SportsGeeksApp')
                     username = null;
                     password = null;
                     token = null;
+                    email = null;
+                    utcOffset = Config.utcOffset;
+                    language = Config.language;
                     isLoggedIn = false;
                     $cookies.remove('username');
                     $cookies.remove('password');
@@ -82,22 +91,25 @@ angular.module('SportsGeeksApp')
                                 }
                             })
                             .then(function (res) {
-                                // console.log('Successfully logged in with cookie!');
+                                console.log('Successfully logged in with cookie!');
                                 states.status = res.data;
-                                states.token = res.data.token;
-                                // console.log(states.status);
+                                console.log(states.status);
                                 username = tmpUsername;
                                 password = tmpPassword;
-                                token = res.data.token;
+                                token = states.status.token;
+                                email = states.status.email;
+                                utcOffset = states.status.utcOffset;
+                                language = states.status.language;
                                 isLoggedIn = true;
                                 $cookies.put('username', username);
                                 $cookies.put('password', password);
                                 $cookies.put('token', token);
                                 // console.log('Updated the States');
+
                             }, function (res) {
-                                // console.log('Error while login with cookie!');
+                                console.log('Error while login with cookie!');
                                 states.status = res.data;
-                                // console.log(states.status);
+                                console.log(states.status);
                                 $cookies.remove('username');
                                 $cookies.remove('password');
                                 $cookies.remove('token');
@@ -105,6 +117,10 @@ angular.module('SportsGeeksApp')
                             });
                     }
                 }
+            },
+            updateSettings: function (_utcOffset, _language) {
+                utcOffset = _utcOffset;
+                language = _language;
             },
             username: function () {
                 return username;
@@ -114,6 +130,15 @@ angular.module('SportsGeeksApp')
             },
             token: function () {
                 return token;
+            },
+            email: function () {
+                return email;
+            },
+            utcOffset: function () {
+                return utcOffset;
+            },
+            language: function () {
+                return language;
             }
         };
     }]);

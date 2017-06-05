@@ -10,7 +10,11 @@
 angular.module('SportsGeeksApp')
     .controller('SignUpCtrl', ['$http', '$location', 'Config', 'States', function ($http, $location, Config, States) {
         States.setCurrentPage(6);
-        this.user = {};
+        const defaultSetting = {
+            utcOffset: Config.utcOffset,
+            language: Config.language
+        };
+        this.user = defaultSetting;
         var store = this;
         this.register = function () {
             $http({
@@ -21,7 +25,10 @@ angular.module('SportsGeeksApp')
                     },
                     data: {
                         username: store.user.username,
-                        password: store.user.password
+                        password: store.user.password,
+                        email: store.user.email,
+                        utcOffset: store.user.utcOffset,
+                        language: store.user.language
                     }
                 })
                 .then(function (res) {
@@ -33,7 +40,7 @@ angular.module('SportsGeeksApp')
                     console.log('Error while register!');
                     store.status = res.data;
                     console.log(store.status);
-                    store.user = {};
+                    store.user = defaultSetting;
                 });
         };
     }]);

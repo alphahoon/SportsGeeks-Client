@@ -28,8 +28,11 @@ angular.module('SportsGeeksApp')
                     console.log('Successfully logged in!');
                     store.status = res.data;
                     store.user.token = res.data.token;
+                    store.user.email = res.data.email;
+                    store.user.utcOffset = res.data.utcOffset;
+                    store.user.language = res.data.language;
                     console.log(store.status);
-                    States.login(store.user.username, store.user.password, store.user.token);
+                    States.login(store.user.username, store.user.password, store.user.token, store.user.email, store.user.utcOffset, store.user.language);
                     $location.path('/');
                 }, function (res) {
                     console.log('Error while login!');
