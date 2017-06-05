@@ -149,6 +149,10 @@ angular.module('SportsGeeksApp')
             'League Standings': {
                 'en': 'League Standings',
                 'kr': '리그 순위표'
+            },
+            'Current Time': {
+                'en': 'Current Time',
+                'kr': '현재 시각'
             }
         };
         return {
@@ -164,6 +168,29 @@ angular.module('SportsGeeksApp')
                     .format('LLLL');
                 // console.log(dateTime);
                 return dateTime;
+            },
+            customDate: function (date, utcOffset, language, format) {
+                var dateTime = moment(date)
+                    .locale(language)
+                    .utcOffset(0)
+                    .add(utcOffset, 'hours')
+                    .format(format);
+                return dateTime;
+            },
+            currentTime: function (utcOffset, language) {
+                var temp = moment()
+                    .locale(language)
+                    .utcOffset(0)
+                    .add(utcOffset, 'hours')
+                    .format('LLLL');
+                var mmss = moment()
+                    .locale(language)
+                    .utcOffset(0)
+                    .add(utcOffset, 'hours')
+                    .format(':mm:ss');
+                var begin = temp.indexOf(':');
+                var end = begin + 2;
+                return temp.substr(0, begin) + mmss + temp.substr(end + 1);
             }
         };
     });

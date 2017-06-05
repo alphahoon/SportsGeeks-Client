@@ -1,2 +1,7 @@
 <h1>{{main.tr('Today\'s Match')}}</h1>
-<p ng-show="main.isLoggedIn()">{{main.tr('Hello')}}! {{main.username()}}</p>
+<div ng-show="main.isLoggedIn()">
+    <h3>{{main.tr('Hello')}}! {{main.username()}}</h3>
+</div>
+<div>
+    <h3 style="text-align:right;">{{main.tr('Current Time')}}: <i>{{main.getCurrentTime()}}</i></h3>
+</div>
