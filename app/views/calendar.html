@@ -1,4 +1,14 @@
 <p ng-hide="calendar.isLoggedIn()">{{calendar.tr('Unauthorized Access')}}</p>
 <div ng-show="calendar.isLoggedIn()">
-    <h1>{{calendar.tr('Match Schedules')}}</h1>
+    <pre>Selected Local Date: <em>{{localBegin.format('LL')}}</em></pre>
+    <pre>From UTC+0:00 <em>{{utcBegin.format('LLLL')}} To UTC+0:00 {{utcEnd.format('LLLL')}}</em></pre>
+    <div class="row">
+        <div class="col-sm-6" style="text-align:center;">
+            <h1>{{calendar.tr('Calendar')}}</h1>
+            <datepicker></datepicker>
+        </div>
+        <div class="col-sm-6" style="text-align:center;">
+            <h1>{{calendar.tr('Match Schedules')}}</h1>
+        </div>
+    </div>
 </div>

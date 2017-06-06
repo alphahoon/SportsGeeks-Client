@@ -8,8 +8,9 @@
  * Controller of the SportsGeeksApp
  */
 angular.module('SportsGeeksApp')
-    .controller('CalendarCtrl', ['States', 'Translation', function (States, Translation) {
+    .controller('CalendarCtrl', ['$scope', '$rootScope', 'States', 'Translation', function ($scope, $rootScope, States, Translation) {
         States.setCurrentPage(2);
+
         this.isLoggedIn = function () {
             return States.isLoggedIn();
         };

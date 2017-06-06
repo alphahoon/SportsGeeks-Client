@@ -153,6 +153,10 @@ angular.module('SportsGeeksApp')
             'Current Time': {
                 'en': 'Current Time',
                 'kr': '현재 시각'
+            },
+            'Today': {
+                'en': 'Today',
+                'kr': '오늘'
             }
         };
         return {

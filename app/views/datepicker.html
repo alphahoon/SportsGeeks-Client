@@ -1,0 +1,73 @@
+<div ng-controller="DatepickerCtrl as dc">
+    <div style="display:inline-block; min-height:300px;">
+        <div uib-datepicker ng-if="isEnLocale" ng-model="$parent.dt" ng-model-options="{timezone: 'utc+9'}" class="well well-sm" datepicker-options="options"></div>
+        <div uib-datepicker ng-if="isKrLocale" ng-model="$parent.dt" ng-model-options="{timezone: 'utc+9'}" class="well well-sm" datepicker-options="options"></div>
+    </div>
+    <div>
+        <button type="button" class="btn btn-sm btn-info" ng-click="today()" style="width:200px">{{dc.tr('Today')}}</button>
+    </div>
+</div>
+<style>
+    .green button {
+        background-color: #2ecc71;
+        border-color: #27ae60;
+        color: white;
+    }
+
+    .blue button {
+        background-color: #3498db;
+        border-color: #2980b9;
+        color: white;
+    }
+
+    .btn-sm,
+    .btn-group-sm > .btn {
+        padding: 8px 16px;
+        font-size: 2rem;
+    }
+
+    .well.well-sm {
+        font-size: 2.4rem;
+    }
+
+    .btn-info,
+    .btn-info.active,
+    .btn-info.hover,
+    .btn-info.focus,
+    .btn-info:active,
+    .btn-info:hover,
+    .btn-info:focus,
+    .btn-info:active:focus,
+    .btn-info.active:focus,
+    .btn-info:active.focus,
+    .btn-info.active.focus,
+    .btn-info.active:active,
+    .btn-info.active:hover,
+    .btn-info.active:focus,
+    .btn-info.hover:active,
+    .btn-info.hover:hover,
+    .btn-info.hover:focus,
+    .btn-info.focus:active,
+    .btn-info.focus:hover,
+    .btn-info.focus:focus,
+    .open > .dropdown-toggle.btn-info {
+        background: #e74c3c;
+        border-color: #c0392b;
+    }
+
+    .btn-default:hover,
+    .btn-default.hover,
+    .btn-default.focus:hover,
+    .btn-default:focus:hover {
+        background: #f1c40f;
+        border-color: #f39c12;
+    }
+
+    .text-info {
+        color: #c0392b;
+    }
+
+    .btn-info > .text-info {
+        color: white;
+    }
+</style>
