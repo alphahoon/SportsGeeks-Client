@@ -53,4 +53,22 @@ angular.module('SportsGeeksApp')
         this.tr = function (msg) {
             return Translation.tr(msg, States.language());
         };
+        this.getMainData = function () {
+            $http({
+                    url: Config.url,
+                    method: 'GET',
+                    params: {
+                        apiKey: Config.apiKey,
+                        token: States.token()
+                    }
+                })
+                .then(function (res) {
+                    States.setMainData(res.data);
+                    console.log(States.mainData());
+                }, function (res) {
+                    console.log('Error while retrieving data!');
+                    console.log(res.data);
+                });
+        };
+        this.getMainData();
     }]);

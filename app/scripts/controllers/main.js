@@ -8,9 +8,10 @@
  * Controller of the SportsGeeksApp
  */
 angular.module('SportsGeeksApp')
-    .controller('MainCtrl', ['$cookies', '$scope', '$rootScope', 'States', 'Translation', function ($scope, $rootScope, $cookies, States, Translation) {
+    .controller('MainCtrl', ['$cookies', '$scope', '$rootScope', '$http', 'Config', 'States', 'Translation', function ($scope, $rootScope, $cookies, $http, Config, States, Translation) {
         States.setCurrentPage(1);
         $scope.currentTime = Translation.currentTime(States.utcOffset(), States.language());
+
         this.isLoggedIn = function () {
             return States.isLoggedIn();
         };

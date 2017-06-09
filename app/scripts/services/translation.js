@@ -18,6 +18,30 @@ angular.module('SportsGeeksApp')
                 'en': 'Korean',
                 'kr': '한국어'
             },
+            'Sports': {
+                'en': 'Sports',
+                'kr': '스포츠'
+            },
+            'Leagues': {
+                'en': 'Leagues',
+                'kr': '리그'
+            },
+            'Teams': {
+                'en': 'Teams',
+                'kr': '팀'
+            },
+            'Sport': {
+                'en': 'Sport',
+                'kr': '스포츠'
+            },
+            'League': {
+                'en': 'League',
+                'kr': '리그'
+            },
+            'Team': {
+                'en': 'Team',
+                'kr': '팀'
+            },
             'Unauthorized Access': {
                 'en': 'Unauthorized Access',
                 'kr': '허가되지 않은 접근'

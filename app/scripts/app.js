@@ -17,7 +17,8 @@ angular
         'ngSanitize',
         'ngTouch',
         'ngLocale',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'ngMaterial'
     ])
     .config(function ($provide, $routeProvider, $locationProvider) {
         $routeProvider

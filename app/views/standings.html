@@ -1,4 +1,59 @@
 <p ng-hide="standings.isLoggedIn()">{{standings.tr('Unauthorized Access')}}</p>
 <div ng-show="standings.isLoggedIn()">
     <h1>{{standings.tr('League Standings')}}</h1>
+    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default btn-primary btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{standings.tr('Sports')}} <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li ng-repeat="obj in standings.trimmed.sports | orderBy: 'name'">
+                    <a ng-click="standings.selectSport(obj)">
+                        <img ng-src="{{obj.img}}"></img>
+                        <span>{{obj.name}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default btn-info btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{standings.tr('Leagues')}} <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li ng-repeat="obj in standings.trimmed.leagues | orderBy: 'name'">
+                    <a ng-click="standings.selectLeague(obj)">
+                        <img ng-src="{{obj.img}}"></img>
+                        <span>{{obj.name}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default btn-success btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{standings.tr('Teams')}} <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li ng-repeat="obj in standings.trimmed.teams | orderBy: 'name'">
+                    <a ng-click="standings.selectTeam(obj)">
+                        <img ng-src="{{obj.img}}"></img>
+                        <span>{{obj.name}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <p>{{standings.selected}}</p>
 </div>
+<style>
+    ul.dropdown-menu {
+        width: 100%;
+        font-size: 2rem;
+        text-align: center;
+    }
+    ul.dropdown-menu > li {
+        cursor: pointer;
+    }
+    ul.dropdown-menu > li > a > img {
+        height: 2rem;
+    }
+    .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+        background: #f1c40f;
+    }
+</style>

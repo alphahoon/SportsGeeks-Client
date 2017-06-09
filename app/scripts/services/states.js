@@ -20,6 +20,7 @@ angular.module('SportsGeeksApp')
         var language = Config.language;
         var date = null;
         var states = this;
+        var mainData = {};
 
         // Public API here
         return {
@@ -149,6 +150,31 @@ angular.module('SportsGeeksApp')
             },
             date: function () {
                 return date;
+            },
+            setMainData: function (_mainData) {
+                mainData = _mainData;
+            },
+            mainData: function () {
+                return mainData;
+            },
+            getTrimmedData: function (type, aliasMode, language) {
+                const subSet = mainData[type];
+                var json = [];
+                for (var index in subSet) {
+                    var tmpName = '';
+                    if (aliasMode) {
+                        tmpName = subSet[index].alias[language];
+                    } else {
+                        tmpName = subSet[index].name[language];
+                    }
+                    json.push({
+                        id: subSet[index].id,
+                        type: subSet[index].type,
+                        name: tmpName,
+                        img: Config.url + subSet[index].img
+                    });
+                }
+                return json;
             }
         };
     }]);
