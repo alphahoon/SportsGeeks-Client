@@ -10,13 +10,11 @@
 angular.module('SportsGeeksApp')
     .controller('StandingsCtrl', ['$scope', '$rootScope', 'States', 'Translation', function ($scope, $rootScope, States, Translation) {
         States.setCurrentPage(3);
-        $scope.trimmed = {};
         $scope.selected = {
             sport: null,
             league: null,
             team: null
         };
-        this.aliasMode = true;
         var store = this;
 
         this.isLoggedIn = function () {
@@ -28,21 +26,14 @@ angular.module('SportsGeeksApp')
         this.tr = function (msg) {
             return Translation.tr(msg, States.language());
         };
-        this.getList = function (aliasMode) {
-            $scope.trimmed.sports = States.getTrimmedData('sports', aliasMode, States.language());
-            $scope.trimmed.leagues = States.getTrimmedData('leagues', aliasMode, States.language());
-            $scope.trimmed.teams = States.getTrimmedData('teams', aliasMode, States.language());
-        };
-        $scope.$watch(function () {
-            return States.mainData() + States.language() + store.aliasMode;
-        }, function () {
-            store.getList(store.aliasMode);
-        }, true);
         this.selectSport = function (obj) {
             $scope.selected.sport = obj.id;
+            $scope.selected.league = null;
+            $scope.selected.team = null;
         };
         this.selectLeague = function (obj) {
             $scope.selected.league = obj.id;
+            $scope.selected.team = null;
         };
         this.selectTeam = function (obj) {
             $scope.selected.team = obj.id;

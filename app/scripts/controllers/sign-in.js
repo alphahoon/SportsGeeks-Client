@@ -32,8 +32,9 @@ angular.module('SportsGeeksApp')
                     store.user.utcOffset = res.data.utcOffset;
                     store.user.language = res.data.language;
                     store.user.date = res.data.date;
+                    store.user.pref = res.data.pref;
                     // console.log(store.status);
-                    States.login(store.user.username, store.user.password, store.user.token, store.user.email, store.user.utcOffset, store.user.language, store.user.date);
+                    States.login(store.user.username, store.user.password, store.user.token, store.user.email, store.user.utcOffset, store.user.language, store.user.date, store.user.pref);
                     $location.path('/');
                 }, function (res) {
                     console.log('Error while login!');

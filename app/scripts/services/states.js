@@ -19,6 +19,7 @@ angular.module('SportsGeeksApp')
         var utcOffset = Config.utcOffset;
         var language = Config.language;
         var date = null;
+        var pref = [];
         var states = this;
         var mainData = {};
 
@@ -33,7 +34,7 @@ angular.module('SportsGeeksApp')
             isLoggedIn: function () {
                 return isLoggedIn;
             },
-            login: function (_username, _password, _token, _email, _utcOffset, _language, _date) {
+            login: function (_username, _password, _token, _email, _utcOffset, _language, _date, _pref) {
                 if (!isLoggedIn) {
                     username = _username;
                     password = _password;
@@ -42,6 +43,7 @@ angular.module('SportsGeeksApp')
                     utcOffset = _utcOffset;
                     language = _language;
                     date = _date;
+                    pref = _pref;
                     isLoggedIn = true;
                     $cookies.put('username', username);
                     $cookies.put('password', password);
@@ -60,6 +62,7 @@ angular.module('SportsGeeksApp')
                     utcOffset = Config.utcOffset;
                     language = Config.language;
                     date = null;
+                    pref = [];
                     isLoggedIn = false;
                     $cookies.remove('username');
                     $cookies.remove('password');
@@ -105,6 +108,7 @@ angular.module('SportsGeeksApp')
                                 utcOffset = states.status.utcOffset;
                                 language = states.status.language;
                                 date = states.status.date;
+                                pref = states.status.pref;
                                 isLoggedIn = true;
                                 $cookies.put('username', username);
                                 $cookies.put('password', password);
@@ -150,6 +154,12 @@ angular.module('SportsGeeksApp')
             },
             date: function () {
                 return date;
+            },
+            pref: function () {
+                return pref;
+            },
+            setPref: function (_pref) {
+                pref = _pref;
             },
             setMainData: function (_mainData) {
                 mainData = _mainData;

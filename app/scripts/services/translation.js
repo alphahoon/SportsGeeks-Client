@@ -181,6 +181,26 @@ angular.module('SportsGeeksApp')
             'Today': {
                 'en': 'Today',
                 'kr': '오늘'
+            },
+            'Add': {
+                'en': 'Add',
+                'kr': '추가하기'
+            },
+            'Remove': {
+                'en': 'Remove',
+                'kr': '제외하기'
+            },
+            'Save': {
+                'en': 'Save',
+                'kr': '저장하기'
+            },
+            'Your Current Preferences': {
+                'en': 'Your Current Preferences',
+                'kr': '내 현재 기호'
+            },
+            'None': {
+                'en': 'None',
+                'kr': '없음'
             }
         };
         return {

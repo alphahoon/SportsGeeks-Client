@@ -3,7 +3,7 @@
     <h1>{{myPage.tr('My Account Settings')}}</h1>
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">{{myPage.tr('General Account Information')}}</h3>
+            <h3 class="panel-title"><span class="glyphicon glyphicon-info-sign"></span>  {{myPage.tr('General Account Information')}}</h3>
         </div>
         <div class="panel-body">
             <div class="row">
@@ -22,11 +22,12 @@
                     <span>{{myPage.date()}}</span>
                 </div>
             </div>
+            <button ng-click="myPage.deleteAccount()" class="btn btn-danger btn-xs" style="float:right; margin-right:20px;">{{myPage.tr('Delete My Account')}}</button>
         </div>
     </div>
     <div class="panel panel-success">
         <div class="panel-heading">
-            <h3 class="panel-title">{{myPage.tr('My Localization Settings')}}</h3>
+            <h3 class="panel-title"><span class="glyphicon glyphicon-globe"></span>  {{myPage.tr('My Localization Settings')}}</h3>
         </div>
         <div class="panel-body">
             <form name="form" ng-submit="myPage.updateSettings()" role="form" novalidate>
@@ -75,22 +76,116 @@
                     <div class="col-sm-2">
                         <div class="form-actions">
                             <label for="update">&nbsp;</label>
-                            <button ng-disabled="form.$invalid" type="submit" name="update" id="update" class="btn btn-success" style="width:100%">{{myPage.tr('Update')}}</button>
+                            <button ng-disabled="form.$invalid" type="submit" name="update" id="update" class="btn btn-success" style="font-weight:bold;width:100%">{{myPage.tr('Update')}}</button>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    <div class="panel panel-warning">
+    <div class="panel panel-info">
         <div class="panel-heading">
-            <h3 class="panel-title">{{myPage.tr('My Preference Settings')}}</h3>
+            <h3 class="panel-title"><span class="glyphicon glyphicon-heart"></span>  {{myPage.tr('My Preference Settings')}}</h3>
         </div>
         <div class="panel-body">
-
+            <div>
+                <span style="font-weight:bold">{{myPage.tr('Your Current Preferences')}} : </span>
+                <span ng-if="myPage.getStatesPref().length == 0">{{myPage.tr('None')}}</span>
+                <button class="btn btn-info btn-xs pref-tag" ng-repeat="obj in pref" ng-click="myPage.removePrefID(obj)">{{myPage.getPrefName(obj)}}</button>
+            </div>
+            <hr>
+            <div>
+                <h3 class="header-pref">{{myPage.tr('Sports')}}</h3>
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-6" ng-repeat="obj in trimmed.sports | orderBy: 'name'">
+                        <a class="thumbnail" ng-click="myPage.selectSport(obj)">
+                            <h4 class="thm-title">{{obj.name}}</h4>
+                            <img ng-src="{{obj.img}}">
+                        </a>
+                        <button ng-if="!myPage.isInPref(obj)" class="btn btn-success btn-pref" ng-click="myPage.addPref(obj)"><span class="glyphicon glyphicon-plus-sign"></span>  {{myPage.tr('Add')}}</button>
+                        <button ng-if="myPage.isInPref(obj)" class="btn btn-danger btn-pref" ng-click="myPage.removePref(obj)"><span class="glyphicon glyphicon-minus-sign"></span>  {{myPage.tr('Remove')}}</button>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="selected.sport != null">
+                <hr>
+                <h3 class="header-pref">{{myPage.tr('Leagues')}}</h3>
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-6" ng-repeat="obj in trimmed.leagues | sport: selected.sport | orderBy: 'name'">
+                        <a class="thumbnail" ng-click="myPage.selectLeague(obj)">
+                            <h4 class="thm-title">{{obj.name}}</h4>
+                            <img ng-src="{{obj.img}}">
+                        </a>
+                        <button ng-if="!myPage.isInPref(obj)" class="btn btn-success btn-pref" ng-click="myPage.addPref(obj)"><span class="glyphicon glyphicon-plus-sign"></span>  {{myPage.tr('Add')}}</button>
+                        <button ng-if="myPage.isInPref(obj)" class="btn btn-danger btn-pref" ng-click="myPage.removePref(obj)"><span class="glyphicon glyphicon-minus-sign"></span>  {{myPage.tr('Remove')}}</button>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="selected.league != null">
+                <hr>
+                <h3 class="header-pref">{{myPage.tr('Teams')}}</h3>
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-6" ng-repeat="obj in trimmed.teams | league: selected.league | orderBy: 'name'">
+                        <a id="team-card" class="thumbnail">
+                            <h4 class="thm-title">{{obj.name}}</h4>
+                            <img ng-src="{{obj.img}}">
+                        </a>
+                        <button ng-if="!myPage.isInPref(obj)" class="btn btn-success btn-pref" ng-click="myPage.addPref(obj)"><span class="glyphicon glyphicon-plus-sign"></span>  {{myPage.tr('Add')}}</button>
+                        <button ng-if="myPage.isInPref(obj)" class="btn btn-danger btn-pref" ng-click="myPage.removePref(obj)"><span class="glyphicon glyphicon-minus-sign"></span>  {{myPage.tr('Remove')}}</button>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-info btn-save-pref" ng-click="myPage.savePref()"><span class="glyphicon glyphicon-floppy-disk"></span>  {{myPage.tr('Save')}}</button>
         </div>
     </div>
-    <div class="row" style="text-align:center">
-        <button ng-click="myPage.deleteAccount()" class="btn btn-danger">{{myPage.tr('Delete My Account')}}</button>
-    </div>
 </div>
+<style>
+    .panel-heading > h3 {
+        font-weight: bold;
+    }
+    a:hover {
+        text-decoration: none;
+        background: #ecf0f1;
+        cursor: pointer;
+    }
+    .thumbnail {
+        padding-bottom: 20px;
+        margin-bottom: 0;
+    }
+    .thumbnail > img {
+        min-height: 128px;
+        min-width: 128px;
+    }
+    .thumbnail > .thm-title,
+    .thumbnail > .thm-title:hover {
+        color: black;
+        text-align: center;
+        font-weight: bold;
+    }
+    button.btn-pref {
+        width: 100%;
+        font-weight: bold;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    #team-card:hover {
+        cursor: default;
+    }
+    .header-pref {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .thm-title {
+        font-weight: bold;
+    }
+    .btn-save-pref {
+        width: 100%;
+        height: 60px;
+        font-weight: bold;
+        font-size: 2rem;
+    }
+    .pref-tag {
+        font-weight: bold;
+        margin-left: 10px;
+    }
+</style>

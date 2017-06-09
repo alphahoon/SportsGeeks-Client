@@ -8,7 +8,12 @@
  * Controller of the SportsGeeksApp
  */
 angular.module('SportsGeeksApp')
-    .controller('HeaderCtrl', ['$http', '$route', '$location', 'Config', 'States', 'Translation', function ($http, $route, $location, Config, States, Translation) {
+    .controller('HeaderCtrl', ['$scope', '$rootScope', '$http', '$route', '$location', 'Config', 'States', 'Translation', function ($scope, $rootScope, $http, $route, $location, Config, States, Translation) {
+        $rootScope.receivedData = 0;
+
+        $rootScope.trimmed = {};
+        $rootScope.aliasMode = true;
+
         var store = this;
         States.cookieLogin();
         this.isCurrentPage = function (page) {
@@ -53,6 +58,16 @@ angular.module('SportsGeeksApp')
         this.tr = function (msg) {
             return Translation.tr(msg, States.language());
         };
+        this.getList = function (aliasMode) {
+            $rootScope.trimmed.sports = States.getTrimmedData('sports', aliasMode, States.language());
+            $rootScope.trimmed.leagues = States.getTrimmedData('leagues', aliasMode, States.language());
+            $rootScope.trimmed.teams = States.getTrimmedData('teams', aliasMode, States.language());
+        };
+        $rootScope.$watch(function () {
+            return $rootScope.receivedData + $rootScope.aliasMode + States.language();
+        }, function () {
+            store.getList($rootScope.aliasMode);
+        }, true);
         this.getMainData = function () {
             $http({
                     url: Config.url,
@@ -63,8 +78,10 @@ angular.module('SportsGeeksApp')
                     }
                 })
                 .then(function (res) {
+                    console.log("Received Data!");
+                    $rootScope.receivedData += 1;
                     States.setMainData(res.data);
-                    console.log(States.mainData());
+                    store.getList($rootScope.aliasMode);
                 }, function (res) {
                     console.log('Error while retrieving data!');
                     console.log(res.data);
