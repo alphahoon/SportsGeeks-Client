@@ -161,18 +161,21 @@ angular.module('SportsGeeksApp')
                 const subSet = mainData[type];
                 var json = [];
                 for (var index in subSet) {
-                    var tmpName = '';
+                    var obj = {};
                     if (aliasMode) {
-                        tmpName = subSet[index].alias[language];
+                        obj.name = subSet[index].alias[language];
                     } else {
-                        tmpName = subSet[index].name[language];
+                        obj.name = subSet[index].name[language];
                     }
-                    json.push({
-                        id: subSet[index].id,
-                        type: subSet[index].type,
-                        name: tmpName,
-                        img: Config.url + subSet[index].img
-                    });
+                    obj.id = subSet[index].id,
+                        obj.type = subSet[index].type,
+                        obj.img = Config.url + subSet[index].img
+                    if (obj.type == 'league') {
+                        obj.sport = subSet[index].sport;
+                    } else if (obj.type == 'team') {
+                        obj.league = subSet[index].league;
+                    }
+                    json.push(obj);
                 }
                 return json;
             }

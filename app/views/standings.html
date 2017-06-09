@@ -6,7 +6,7 @@
             <button type="button" class="btn btn-default btn-primary btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{standings.tr('Sports')}} <span class="caret"></span></button>
             <ul class="dropdown-menu">
-                <li ng-repeat="obj in standings.trimmed.sports | orderBy: 'name'">
+                <li ng-repeat="obj in trimmed.sports | orderBy: 'name'">
                     <a ng-click="standings.selectSport(obj)">
                         <img ng-src="{{obj.img}}"></img>
                         <span>{{obj.name}}</span>
@@ -15,10 +15,10 @@
             </ul>
         </div>
         <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default btn-info btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button ng-class="{disabled: selected.sport == null}"type="button" class="btn btn-default btn-info btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{standings.tr('Leagues')}} <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-                <li ng-repeat="obj in standings.trimmed.leagues | orderBy: 'name'">
+            <ul ng-if="selected.sport != null" class="dropdown-menu">
+                <li ng-repeat="obj in trimmed.leagues | sport: selected.sport | orderBy: 'name'">
                     <a ng-click="standings.selectLeague(obj)">
                         <img ng-src="{{obj.img}}"></img>
                         <span>{{obj.name}}</span>
@@ -27,10 +27,10 @@
             </ul>
         </div>
         <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default btn-success btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button ng-class="{disabled: selected.league == null}" type="button" class="btn btn-default btn-success btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{standings.tr('Teams')}} <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-                <li ng-repeat="obj in standings.trimmed.teams | orderBy: 'name'">
+            <ul ng-if="selected.league != null" class="dropdown-menu">
+                <li ng-repeat="obj in trimmed.teams | league: selected.league | orderBy: 'name'">
                     <a ng-click="standings.selectTeam(obj)">
                         <img ng-src="{{obj.img}}"></img>
                         <span>{{obj.name}}</span>
@@ -39,7 +39,7 @@
             </ul>
         </div>
     </div>
-    <p>{{standings.selected}}</p>
+    <p>{{selected}}</p>
 </div>
 <style>
     ul.dropdown-menu {

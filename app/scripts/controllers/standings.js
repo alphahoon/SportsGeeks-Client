@@ -10,8 +10,8 @@
 angular.module('SportsGeeksApp')
     .controller('StandingsCtrl', ['$scope', '$rootScope', 'States', 'Translation', function ($scope, $rootScope, States, Translation) {
         States.setCurrentPage(3);
-        this.trimmed = {};
-        this.selected = {
+        $scope.trimmed = {};
+        $scope.selected = {
             sport: null,
             league: null,
             team: null
@@ -29,9 +29,9 @@ angular.module('SportsGeeksApp')
             return Translation.tr(msg, States.language());
         };
         this.getList = function (aliasMode) {
-            this.trimmed.sports = States.getTrimmedData('sports', aliasMode, States.language());
-            this.trimmed.leagues = States.getTrimmedData('leagues', aliasMode, States.language());
-            this.trimmed.teams = States.getTrimmedData('teams', aliasMode, States.language());
+            $scope.trimmed.sports = States.getTrimmedData('sports', aliasMode, States.language());
+            $scope.trimmed.leagues = States.getTrimmedData('leagues', aliasMode, States.language());
+            $scope.trimmed.teams = States.getTrimmedData('teams', aliasMode, States.language());
         };
         $scope.$watch(function () {
             return States.mainData() + States.language() + store.aliasMode;
@@ -39,12 +39,12 @@ angular.module('SportsGeeksApp')
             store.getList(store.aliasMode);
         }, true);
         this.selectSport = function (obj) {
-            this.selected.sport = obj.id;
+            $scope.selected.sport = obj.id;
         };
         this.selectLeague = function (obj) {
-            this.selected.league = obj.id;
+            $scope.selected.league = obj.id;
         };
         this.selectTeam = function (obj) {
-            this.selected.team = obj.id;
+            $scope.selected.team = obj.id;
         };
     }]);
