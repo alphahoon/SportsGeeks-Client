@@ -1,7 +1,7 @@
 <p ng-hide="calendar.isLoggedIn()">{{calendar.tr('Unauthorized Access')}}</p>
 <div ng-show="calendar.isLoggedIn()">
     <div class="row">
-        <div class="col-sm-6" style="text-align:center; position:fixed">
+        <div class="calendar-area" style="text-align:center; position:fixed;">
             <h1>{{calendar.tr('Calendar')}}</h1>
             <datepicker></datepicker>
         </div>
