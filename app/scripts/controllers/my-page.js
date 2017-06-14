@@ -46,10 +46,10 @@ angular.module('SportsGeeksApp')
                     }
                 })
                 .then(function (res) {
-                    console.log('Successfully updated the localization settings!');
+                    // console.log('Successfully updated the localization settings!');
                     store.status = res.data;
                     States.updateSettings(store.status.utcOffset, store.status.language);
-                    console.log(store.status);
+                    // console.log(store.status);
                     store.getUserSettings();
                 }, function (res) {
                     console.log('Error while updating the localization settings!');
@@ -146,7 +146,7 @@ angular.module('SportsGeeksApp')
                     }
                 })
                 .then(function (res) {
-                    console.log('Successfully updated preferences!');
+                    // console.log('Successfully updated preferences!');
                     // store.status = res.data;
                     States.setPref(res.data.pref);
                     // console.log(store.status);
