@@ -98,9 +98,9 @@ angular.module('SportsGeeksApp')
                 'en': 'Hello',
                 'kr': '안녕하세요'
             },
-            'Top 30 Trending Keywords': {
-                'en': 'Top 30 Trending Keywords',
-                'kr': 'Top 30 트렌딩 키워드'
+            'Top 30 Trending Teams': {
+                'en': 'Top 30 Trending Teams',
+                'kr': 'Top 30 트렌딩 팀'
             },
             'Last updated at: ': {
                 'en': 'Last updated at: ',
@@ -225,6 +225,66 @@ angular.module('SportsGeeksApp')
             'Show My Preferences Only': {
                 'en': 'Show My Preferences Only',
                 'kr': '내 기호에 맞는 것만 보기'
+            },
+            'Matches': {
+                'en': 'Matches',
+                'kr': '경기 수'
+            },
+            'Wins': {
+                'en': 'Wins',
+                'kr': '승'
+            },
+            'Draws': {
+                'en': 'Draws',
+                'kr': '무'
+            },
+            'Losses': {
+                'en': 'Losses',
+                'kr': '패'
+            },
+            'Win Rate': {
+                'en': 'Win Rate',
+                'kr': '승률'
+            },
+            'American': {
+                'en': 'American',
+                'kr': '아메리칸'
+            },
+            'National': {
+                'en': 'National',
+                'kr': '내셔널'
+            },
+            'Classic': {
+                'en': 'Classic',
+                'kr': '클래식'
+            },
+            'Challenge': {
+                'en': 'Challenge',
+                'kr': '챌린지'
+            },
+            'Central': {
+                'en': 'Central',
+                'kr': '센트럴'
+            },
+            'Pacific': {
+                'en': 'Pacific',
+                'kr': '퍼시픽'
+            },
+            'Wildcard': {
+                'en': 'Wildcard',
+                'kr': '와일드카드'
+            },
+            'Center': {
+                'en': 'Center',
+                'kr': '중부'
+            },
+            'East': {
+                'en': 'East',
+                'kr': '동부'
+            },
+            'West': {
+                'en': 'West',
+                'kr': '서부'
             }
         };
         return {

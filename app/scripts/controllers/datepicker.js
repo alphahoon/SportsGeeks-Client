@@ -19,15 +19,15 @@ angular.module('SportsGeeksApp')
             return $scope.dt + States.language();
         }, function () {
             $rootScope.localBegin = moment($scope.dt)
-                .utcOffset(0)
-                .locale(States.language())
-                .add(States.utcOffset(), 'hours')
                 .set({
                     hour: 0,
                     minute: 0,
                     second: 0,
-                    millisecond: 0
-                });
+                    millisecond: 1
+                })
+                .utcOffset(0)
+                .add(9, 'hours');
+            console.log($rootScope.localBegin.format('LLLL'));
             $rootScope.utcBegin = moment($rootScope.localBegin)
                 .subtract(States.utcOffset(), 'hours');
             $rootScope.utcEnd = moment($rootScope.utcBegin)

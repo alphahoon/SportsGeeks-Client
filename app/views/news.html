@@ -1,4 +1,90 @@
 <p ng-hide="news.isLoggedIn()">{{news.tr('Unauthorized Access')}}</p>
 <div ng-show="news.isLoggedIn()">
     <h1>{{news.tr('News View')}}</h1>
+    <div class="btn-group btn-group-justified team-selector" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default btn-primary btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{news.tr('Sports')}} <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li ng-repeat="obj in trimmed.sports | orderBy: 'name'">
+                    <a ng-click="news.selectSport(obj)">
+                        <img ng-src="{{obj.img}}"></img>
+                        <span>{{obj.name}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="btn-group" role="group">
+            <button ng-class="{disabled: selected.sport == null}"type="button" class="btn btn-default btn-info btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{news.tr('Leagues')}} <span class="caret"></span></button>
+            <ul ng-if="selected.sport != null" class="dropdown-menu">
+                <li ng-repeat="obj in trimmed.leagues | sport: selected.sport | orderBy: 'name'">
+                    <a ng-click="news.selectLeague(obj)">
+                        <img ng-src="{{obj.img}}"></img>
+                        <span>{{obj.name}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="btn-group" role="group">
+            <button ng-class="{disabled: selected.league == null}" type="button" class="btn btn-default btn-success btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{news.tr('Teams')}} <span class="caret"></span></button>
+            <ul ng-if="selected.league != null" class="dropdown-menu">
+                <li ng-repeat="obj in trimmed.teams | league: selected.league | orderBy: 'name'">
+                    <a ng-click="news.selectTeam(obj)">
+                        <img ng-src="{{obj.img}}"></img>
+                        <span>{{obj.name}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="panel panel-default news-item" ng-repeat="item in newsList | orderBy: '-posted'">
+        <a href="{{item.url}}">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-1">
+                        {{item.src}}
+                    </div>
+                    <div class="col-sm-11">
+                        <h3>{{item.title}}</h3>
+                        <p style="pading-left: 20px; color: grey">{{item.summary}}...</p>
+                        <h5 class="news-date"><i>{{news.getNewsTime(item.posted)}}</i><h5>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
 </div>
+<style>
+    .news-item a {
+        text-decoration: none;
+        color: black;
+    }
+    .news-item a .panel-body:hover {
+        text-decoration: none;
+        color: #2980b9;
+        background: #ecf0f1;
+    }
+    .news-date {
+        text-align: right;
+        color: grey;
+    }
+    .team-selector {
+        margin-top: 20px;
+    }
+    .team-selector ul.dropdown-menu {
+        width: 100%;
+        font-size: 2rem;
+        text-align: center;
+    }
+    .team-selector ul.dropdown-menu > li {
+        cursor: pointer;
+    }
+    .team-selector ul.dropdown-menu > li > a > img {
+        height: 2rem;
+    }
+    .team-selector .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+        background: #f1c40f;
+    }
+</style>

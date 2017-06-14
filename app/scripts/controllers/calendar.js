@@ -8,9 +8,8 @@
  * Controller of the SportsGeeksApp
  */
 angular.module('SportsGeeksApp')
-    .controller('CalendarCtrl', ['$scope', '$rootScope', 'States', 'Translation', function ($scope, $rootScope, States, Translation) {
+    .controller('CalendarCtrl', ['$scope', '$http', '$rootScope', 'States', 'Config', 'Translation', function ($scope, $http, $rootScope, States, Config, Translation) {
         States.setCurrentPage(2);
-        $rootScope.schedules_date = [];
         var store = this;
 
         this.isLoggedIn = function () {
@@ -23,21 +22,31 @@ angular.module('SportsGeeksApp')
             return Translation.tr(msg, States.language());
         };
 
-        this.getScheduleByDate = function (date) {
-            $rootScope.schedules_date = [];
-            var selected_date = moment(date)
-                .format('YYYY-MM-DD')
-                .toString();
-            for (var i in $rootScope.schedules) {
-                var date = moment($rootScope.schedules[i].datetime)
-                    .utcOffset(0)
-                    .add(States.utcOffset(), 'hours')
-                    .format('YYYY-MM-DD')
-                    .toString();
-                if (date == selected_date) {
-                    $rootScope.schedules_date.push($rootScope.schedules[i]);
-                }
-            }
+        this.getSchedules = function () {
+            $http({
+                    url: Config.url,
+                    method: 'POST',
+                    params: {
+                        apiKey: Config.apiKey,
+                        token: States.token()
+                    },
+                    data: {
+                        begin: $rootScope.utcBegin,
+                        end: $rootScope.utcEnd
+                    }
+                })
+                .then(function (res) {
+                    console.log('Successfully get the Schedules.');
+                    var schedules = res.data.schedules;
+                    $rootScope.schedules = [];
+                    for (var i in schedules) {
+                        $rootScope.schedules.push(schedules[i]);
+                    }
+                }, function (res) {
+                    console.log('Error while getting standings!');
+                    store.status = res.data;
+                    console.log(store.status);
+                });
         };
 
         this.getDetail = function (keyword, keywordsSet) {
@@ -53,10 +62,11 @@ angular.module('SportsGeeksApp')
             return Translation.date(date, States.utcOffset(), States.language());
         };
 
-        this.getScheduleByDate(moment());
         $rootScope.$watch(function () {
-            return $rootScope.localBegin;
+            return $rootScope.utcBegin;
         }, function () {
-            store.getScheduleByDate($rootScope.localBegin);
+            store.getSchedules();
+            console.log($rootScope.localBegin.toISOString());
+            console.log($rootScope.utcBegin.toISOString());
         }, true);
     }]);

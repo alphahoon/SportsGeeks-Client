@@ -106,9 +106,12 @@ angular.module('SportsGeeksApp')
         };
         this.selectSport = function (obj) {
             $scope.selected.sport = obj.id;
+            $scope.selected.league = null;
+            $scope.selected.team = null;
         };
         this.selectLeague = function (obj) {
             $scope.selected.league = obj.id;
+            $scope.selected.team = null;
         };
         this.isInPref = function (obj) {
             return $rootScope.pref.indexOf(obj.id) >= 0;
@@ -175,11 +178,4 @@ angular.module('SportsGeeksApp')
             }
         };
         this.getUserSettings();
-        setInterval(function () {
-            $rootScope.$apply(function () {
-                console.log('-------------------');
-                console.log(States.getPref());
-                console.log($rootScope.pref);
-            });
-        }, 1000);
     }]);

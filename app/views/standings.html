@@ -1,7 +1,7 @@
 <p ng-hide="standings.isLoggedIn()">{{standings.tr('Unauthorized Access')}}</p>
 <div ng-show="standings.isLoggedIn()">
     <h1>{{standings.tr('League Standings')}}</h1>
-    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+    <div class="btn-group btn-group-justified league-selector" role="group" aria-label="...">
         <div class="btn-group" role="group">
             <button type="button" class="btn btn-default btn-primary btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{standings.tr('Sports')}} <span class="caret"></span></button>
@@ -26,34 +26,86 @@
                 </li>
             </ul>
         </div>
-        <div class="btn-group" role="group">
-            <button ng-class="{disabled: selected.league == null}" type="button" class="btn btn-default btn-success btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{standings.tr('Teams')}} <span class="caret"></span></button>
-            <ul ng-if="selected.league != null" class="dropdown-menu">
-                <li ng-repeat="obj in trimmed.teams | league: selected.league | orderBy: 'name'">
-                    <a ng-click="standings.selectTeam(obj)">
-                        <img ng-src="{{obj.img}}"></img>
-                        <span>{{obj.name}}</span>
-                    </a>
-                </li>
-            </ul>
+    </div>
+    <div style="text-align:center;">
+        <h1 class="league-name">{{standings.getDetail(selected.league, trimmed.leagues).name}}</h1>
+        <img class="league-logo" ng-if="selected.league != null" ng-src="{{standings.getDetail(selected.league, trimmed.leagues).img}}"></img>
+    </div>
+    <div>
+        <div ng-repeat="subLeague in standingList">
+            <h3 ng-if="subLeague.division">{{standings.tr(subLeague.division)}}
+                <span ng-if="subLeague.area"> ({{standings.tr(subLeague.area)}})</span>
+            </h3>
+            <div class="panel panel-default" ng-repeat="item in subLeague.standings | orderObjectBy:'rank'">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-1" style="text-align: center;">
+                            <h1 class="team-rank">{{item.rank}} </h1>
+                        </div>
+                        <div class="col-sm-4 team-info">
+                            <img class="team-logo" ng-src="{{standings.getDetail(item.team, trimmed.teams).img}}"></img>
+                            <h3 class="team-name">{{standings.getDetail(item.team, trimmed.teams).name}}</h3>
+                        </div>
+                        <div class="col-sm-2" style="text-align:center;">
+                            <h4>{{standings.tr('Matches')}}</h4>
+                            {{item.matches}}
+                        </div>
+                        <div class="col-sm-1" style="text-align:center;">
+                            <h4>{{standings.tr('Wins')}}</h4>
+                            {{item.wins}}
+                        </div>
+                        <div class="col-sm-1" style="text-align:center;">
+                            <h4>{{standings.tr('Draws')}}</h4>
+                            {{item.draws}}
+                        </div>
+                        <div class="col-sm-1" style="text-align:center;">
+                            <h4>{{standings.tr('Losses')}}</h4>
+                            {{item.losses}}
+                        </div>
+                        <div class="col-sm-2" style="text-align:center;">
+                            <h4>{{standings.tr('Win Rate')}}</h4>
+                            {{item.winrate}}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <p>{{selected}}</p>
 </div>
 <style>
-    ul.dropdown-menu {
+    .league-selector {
+        margin-top: 20px;
+    }
+    .league-selector ul.dropdown-menu {
         width: 100%;
         font-size: 2rem;
         text-align: center;
     }
-    ul.dropdown-menu > li {
+    .league-selector ul.dropdown-menu > li {
         cursor: pointer;
     }
-    ul.dropdown-menu > li > a > img {
+    .league-selector ul.dropdown-menu > li > a > img {
         height: 2rem;
     }
-    .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    .league-selector .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
         background: #f1c40f;
+    }
+    .team-info {
+        display: flex;
+        align-items: center;
+    }
+    .team-rank {
+        font-size: 5.5rem;
+        display:inline;
+        margin: 0;
+    }
+    .team-name {
+        display:inline;
+        margin: 0;
+        margin-left: 10px;
+        padding-left: 10px;
+    }
+    .team-logo {
+        height: 64px;
     }
 </style>

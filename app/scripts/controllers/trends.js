@@ -34,6 +34,14 @@ angular.module('SportsGeeksApp')
                 });
         };
         this.getTrends();
+        this.getDetail = function (keyword, keywordsSet) {
+            for (var i in keywordsSet) {
+                if (keyword == keywordsSet[i].id) {
+                    return keywordsSet[i];
+                }
+            }
+            return false;
+        };
         this.getProgressClass = function (value) {
             if (value >= 75) {
                 return 'progress-bar-danger';
@@ -50,5 +58,13 @@ angular.module('SportsGeeksApp')
         };
         this.tr = function (msg) {
             return Translation.tr(msg, States.language());
+        };
+        this.getDetail = function (keyword, keywordsSet) {
+            for (var i in keywordsSet) {
+                if (keyword == keywordsSet[i].id) {
+                    return keywordsSet[i];
+                }
+            }
+            return false;
         };
     }]);

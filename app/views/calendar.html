@@ -7,7 +7,7 @@
         </div>
         <div class="col-sm-offset-6 col-sm-6">
             <h1 style="width:100%; text-align:center;">{{calendar.tr('Match Schedules')}}</h1>
-            <div ng-repeat="schedule in schedules_date" class="bs-callout bs-callout-default" ng-class="{ 'bs-callout-danger' : {{schedule.pref}} }">
+            <div ng-repeat="schedule in schedules_list" class="bs-callout bs-callout-default" ng-class="{ 'bs-callout-danger' : {{schedule.pref}} }">
                 <div class="schedule-breadcrumb">
                     <img ng-src="{{calendar.getDetail(schedule.sport, trimmed.sports).img}}"></img> {{calendar.getDetail(schedule.sport, trimmed.sports).name}}
                     <span style="font-weight:bold;"> &nbsp;/&nbsp; </span>
@@ -84,6 +84,7 @@
         border: 1px solid #eee;
         border-left-width: 20px;
         border-radius: 3px;
+        background: white;
     }
     .bs-callout h4 {
         margin-top: 0;

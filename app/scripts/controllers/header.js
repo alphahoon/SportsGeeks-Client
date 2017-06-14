@@ -14,9 +14,29 @@ angular.module('SportsGeeksApp')
 
         $rootScope.trimmed = {};
         $rootScope.schedules = [];
+        $rootScope.schedules_list = [];
         $rootScope.pref = [];
         $rootScope.aliasMode = true;
         $rootScope.prefMode = false;
+        $rootScope.standingList = [];
+        $rootScope.today = null;
+        $rootScope.tomorrow = null;
+        $rootScope.newsList = [];
+
+        $rootScope.today = moment($scope.dt)
+            .utcOffset(0)
+            .locale(States.language())
+            .add(States.utcOffset(), 'hours')
+            .set({
+                hour: 0,
+                minute: 0,
+                second: 0,
+                millisecond: 1
+            })
+            .subtract(States.utcOffset(), 'hours');
+
+        $rootScope.tomorrow = moment($rootScope.today)
+            .add(24, 'hours');
 
         var store = this;
         States.cookieLogin();
@@ -68,19 +88,6 @@ angular.module('SportsGeeksApp')
             $rootScope.trimmed.teams = States.getTrimmedData('teams', aliasMode, States.language());
             $rootScope.trimmedData++;
         };
-        this.getSchedulesList = function (prefMode) {
-            $rootScope.schedules = States.getSchedules(prefMode);
-        };
-        $rootScope.$watch(function () {
-            return $rootScope.receivedData + $rootScope.aliasMode + States.language();
-        }, function () {
-            store.getKeywordsList($rootScope.aliasMode);
-        }, true);
-        $rootScope.$watch(function () {
-            return $rootScope.receivedData + $rootScope.trimmedData + $rootScope.prefMode + States.getPref();
-        }, function () {
-            store.getSchedulesList($rootScope.prefMode);
-        }, true);
         this.getMainData = function () {
             $http({
                     url: Config.url,
@@ -96,10 +103,36 @@ angular.module('SportsGeeksApp')
                     States.setMainData(res.data);
                     // console.log(res.data);
                     store.getKeywordsList($rootScope.aliasMode);
-                    store.getSchedulesList($rootScope.prefMode);
                 }, function (res) {
                     console.log('Error while retrieving data!');
                     console.log(res.data);
+                });
+        };
+        this.getSchedules = function () {
+            $http({
+                    url: Config.url,
+                    method: 'POST',
+                    params: {
+                        apiKey: Config.apiKey,
+                        token: States.token()
+                    },
+                    data: {
+                        begin: $rootScope.today,
+                        end: $rootScope.tomorrow
+                    }
+                })
+                .then(function (res) {
+                    console.log('Successfully get the Schedules.');
+                    var schedules = res.data.schedules;
+                    $rootScope.schedules = [];
+                    for (var i in schedules) {
+                        $rootScope.schedules.push(schedules[i]);
+                    }
+                    console.log(res.data);
+                }, function (res) {
+                    console.log('Error while getting schedules!');
+                    store.status = res.data;
+                    console.log(store.status);
                 });
         };
         this.setAliasMode = function (mode) {
@@ -117,4 +150,23 @@ angular.module('SportsGeeksApp')
             }
         };
         this.getMainData();
+        this.getSchedules();
+        $rootScope.$watch(function () {
+            return $rootScope.receivedData + $rootScope.aliasMode + States.language();
+        }, function () {
+            store.getKeywordsList($rootScope.aliasMode);
+        }, true);
+
+        $rootScope.$watch(function () {
+            return States.isCurrentPage(1);
+        }, function () {
+            store.getSchedules();
+        }, true);
+
+        $rootScope.$watch(function () {
+            return $rootScope.schedules + $rootScope.prefMode;
+        }, function () {
+            $rootScope.schedules_list = States.getSchedules($rootScope.prefMode);
+        }, true);
+
     }]);

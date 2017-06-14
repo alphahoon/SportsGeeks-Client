@@ -1,6 +1,6 @@
 <p ng-hide="trends.isLoggedIn()">{{trends.tr('Unauthorized Access')}}</p>
 <div ng-show="trends.isLoggedIn()">
-    <h1>{{trends.tr('Top 30 Trending Keywords')}}</h1>
+    <h1>{{trends.tr('Top 30 Trending Teams')}}</h1>
     <h5>{{trends.tr('This data has been collected by crawling the Google Trends.')}}</h5>
     <h3 class="lastUpdate">
         {{trends.tr('Last updated at: ')}}<i>{{trends.date(trends.trends[0].updated)}}</i>

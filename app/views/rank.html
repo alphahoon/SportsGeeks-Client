@@ -1,11 +1,15 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row">
-            <div class="col-sm-3">
-                <span class="keyword-rank">{{keyword.rank}}. {{keyword.name}}</span>
+            <div class="col-sm-1" style="text-align: center;">
+                <h1 class="team-rank">{{keyword.rank}} </h1>
             </div>
-            <div class="col-sm-9">
-                <div class="progress">
+            <div class="col-sm-4 team-info">
+                <img class="team-logo" ng-src="{{trends.getDetail(keyword.id, trimmed.teams).img}}"></img>
+                <h3 class="team-name">{{trends.getDetail(keyword.id, trimmed.teams).name}}</h3>
+            </div>
+            <div class="col-sm-7" style="height:64px;">
+                <div class="progress" style="margin-top:22px;">
                     <div class="progress-bar progress-bar-striped active" ng-class="trends.getProgressClass(keyword.trendsVal)" role="progressbar" aria-valuenow="{{keyword.trendsVal}}" aria-valuemin="0" aria-valuemax="100" style="width: {{keyword.trendsVal}}%">
                         {{keyword.trendsVal}} %
                     </div>
@@ -14,3 +18,24 @@
         </div>
     </div>
 </div>
+
+<style>
+    .team-info {
+        display: flex;
+        align-items: center;
+    }
+    .team-rank {
+        font-size: 5.5rem;
+        display:inline;
+        margin: 0;
+    }
+    .team-name {
+        margin-left: 10px;
+        display:inline;
+        margin: 0;
+        padding-left: 10px;
+    }
+    .team-logo {
+        height: 64px;
+    }
+</style>

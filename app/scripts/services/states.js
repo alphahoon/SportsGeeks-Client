@@ -221,8 +221,8 @@ angular.module('SportsGeeksApp')
             },
 
             getSchedules: function (prefMode) {
-                if (mainData.schedules) {
-                    var schedules = mainData.schedules;
+                if ($rootScope.schedules) {
+                    var schedules = $rootScope.schedules;
                     var arr = [];
 
                     for (var i in schedules) {
