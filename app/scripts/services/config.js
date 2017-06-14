@@ -9,7 +9,7 @@
  */
 angular.module('SportsGeeksApp')
     .constant('Config', {
-        url: 'http://localhost:9000/',
+        url: 'http://52.78.29.175:9000/',
         apiKey: 'LM7JDrHT2RyzzW5D',
         utcOffset: 9,
         language: 'en'

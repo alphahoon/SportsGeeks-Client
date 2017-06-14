@@ -90,7 +90,7 @@
         <div class="panel-body">
             <div>
                 <span style="font-weight:bold">{{myPage.tr('Your Current Preferences')}} : </span>
-                <span ng-if="myPage.getStatesPref().length == 0">{{myPage.tr('None')}}</span>
+                <span ng-if="pref.length == 0">{{myPage.tr('None')}}</span>
                 <button class="btn btn-info btn-xs pref-tag" ng-repeat="obj in pref" ng-click="myPage.removePrefID(obj)">{{myPage.getPrefName(obj)}}</button>
             </div>
             <hr>
@@ -187,5 +187,6 @@
     .pref-tag {
         font-weight: bold;
         margin-left: 10px;
+        margin-bottom: 10px;
     }
 </style>
