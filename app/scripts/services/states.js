@@ -75,7 +75,7 @@ angular.module('SportsGeeksApp')
                     $cookies.put('username', username);
                     $cookies.put('password', password);
                     $cookies.put('token', token);
-                    console.log('Login!');
+                    // console.log('Login!');
                 } else {
                     console.log('You are already logged in!');
                 }
@@ -125,7 +125,7 @@ angular.module('SportsGeeksApp')
                                 }
                             })
                             .then(function (res) {
-                                console.log('Successfully logged in with cookie!');
+                                // console.log('Successfully logged in with cookie!');
                                 states.status = res.data;
                                 // console.log(states.status);
                                 username = tmpUsername;

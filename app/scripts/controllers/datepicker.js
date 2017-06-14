@@ -27,7 +27,7 @@ angular.module('SportsGeeksApp')
                 })
                 .utcOffset(0)
                 .add(9, 'hours');
-            console.log($rootScope.localBegin.format('LLLL'));
+            // console.log($rootScope.localBegin.format('LLLL'));
             $rootScope.utcBegin = moment($rootScope.localBegin)
                 .subtract(States.utcOffset(), 'hours');
             $rootScope.utcEnd = moment($rootScope.utcBegin)

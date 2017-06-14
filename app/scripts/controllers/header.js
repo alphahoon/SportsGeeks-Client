@@ -122,13 +122,13 @@ angular.module('SportsGeeksApp')
                     }
                 })
                 .then(function (res) {
-                    console.log('Successfully get the Schedules.');
+                    // console.log('Successfully get the Schedules.');
                     var schedules = res.data.schedules;
                     $rootScope.schedules = [];
                     for (var i in schedules) {
                         $rootScope.schedules.push(schedules[i]);
                     }
-                    console.log(res.data);
+                    // console.log(res.data);
                 }, function (res) {
                     console.log('Error while getting schedules!');
                     store.status = res.data;

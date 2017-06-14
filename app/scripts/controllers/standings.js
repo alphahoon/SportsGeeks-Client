@@ -47,9 +47,9 @@ angular.module('SportsGeeksApp')
                     }
                 })
                 .then(function (res) {
-                    console.log('Successfully get the standings for ' + $scope.selected.league);
+                    // console.log('Successfully get the standings for ' + $scope.selected.league);
                     $rootScope.standingList = res.data.data;
-                    console.log($rootScope.standingList);
+                    // console.log($rootScope.standingList);
                 }, function (res) {
                     console.log('Error while getting standings!');
                     store.status = res.data;
