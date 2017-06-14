@@ -201,6 +201,30 @@ angular.module('SportsGeeksApp')
             'None': {
                 'en': 'None',
                 'kr': '없음'
+            },
+            'Alias': {
+                'en': 'Alias',
+                'kr': '약어'
+            },
+            'Full Name': {
+                'en': 'Full Name',
+                'kr': '전체 이름'
+            },
+            'Name Showing': {
+                'en': 'Name Showing',
+                'kr': '이름 표시'
+            },
+            'Schedule Showing': {
+                'en': 'Schedule Showing',
+                'kr': '일정 표시'
+            },
+            'Show All': {
+                'en': 'Show All',
+                'kr': '모두 보기'
+            },
+            'Show My Preferences Only': {
+                'en': 'Show My Preferences Only',
+                'kr': '내 기호에 맞는 것만 보기'
             }
         };
         return {

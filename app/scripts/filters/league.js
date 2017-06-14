@@ -13,8 +13,9 @@ angular.module('SportsGeeksApp')
         return function (input, leagueID) {
             var array = [];
             for (var index in input) {
-                if (input[index].league == leagueID)
-                    array.push(input[index])
+                if (input[index].league === leagueID) {
+                    array.push(input[index]);
+                }
             }
             return array;
         };

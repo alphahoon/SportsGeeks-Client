@@ -15,7 +15,6 @@ angular
         'ngResource',
         'ngRoute',
         'ngSanitize',
-        'ngTouch',
         'ngLocale',
         'ui.bootstrap',
         'ngMaterial'

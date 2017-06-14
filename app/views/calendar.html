@@ -1,14 +1,137 @@
 <p ng-hide="calendar.isLoggedIn()">{{calendar.tr('Unauthorized Access')}}</p>
 <div ng-show="calendar.isLoggedIn()">
-    <pre>Selected Local Date: <em>{{localBegin.format('LL')}}</em></pre>
-    <pre>From UTC+0:00 <em>{{utcBegin.format('LLLL')}} To UTC+0:00 {{utcEnd.format('LLLL')}}</em></pre>
     <div class="row">
-        <div class="col-sm-6" style="text-align:center;">
+        <div class="col-sm-6" style="text-align:center; position:fixed">
             <h1>{{calendar.tr('Calendar')}}</h1>
             <datepicker></datepicker>
         </div>
-        <div class="col-sm-6" style="text-align:center;">
-            <h1>{{calendar.tr('Match Schedules')}}</h1>
+        <div class="col-sm-offset-6 col-sm-6">
+            <h1 style="width:100%; text-align:center;">{{calendar.tr('Match Schedules')}}</h1>
+            <div ng-repeat="schedule in schedules_date" class="bs-callout bs-callout-default" ng-class="{ 'bs-callout-danger' : {{schedule.pref}} }">
+                <div class="schedule-breadcrumb">
+                    <img ng-src="{{calendar.getDetail(schedule.sport, trimmed.sports).img}}"></img> {{calendar.getDetail(schedule.sport, trimmed.sports).name}}
+                    <span style="font-weight:bold;"> &nbsp;/&nbsp; </span>
+                    <img ng-src="{{calendar.getDetail(schedule.league, trimmed.leagues).img}}"></img> {{calendar.getDetail(schedule.league, trimmed.leagues).name}}
+                </div>
+                <div class="row schedule-contents">
+                    <div class="col-sm-5 teamA">
+                        <img ng-src="{{calendar.getDetail(schedule.teamA, trimmed.teams).img}}"></img>
+                        <div>{{calendar.getDetail(schedule.teamA, trimmed.teams).name}}</div>
+                    </div>
+                    <div class="col-sm-2 scoreboard">
+                        <span ng-if="schedule.done">
+                            {{schedule.scoreA}} - {{schedule.scoreB}}
+                        </span>
+                        <span ng-if="!schedule.done">
+                            -
+                        </span>
+                    </div>
+                    <div class="col-sm-5 teamB">
+                        <img ng-src="{{calendar.getDetail(schedule.teamB, trimmed.teams).img}}"></img>
+                        <div>{{calendar.getDetail(schedule.teamB, trimmed.teams).name}}</div>
+                    </div>
+                </div>
+                <div class="schedule-time">
+                    {{calendar.getScheduleTime(schedule.datetime)}}
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+
+<style>
+    .schedule-breadcrumb > img {
+        width: 2rem;
+        font-size:1.4rem;
+    }
+    .schedule-contents img {
+        width: 64px;
+        height: 64px;
+    }
+    .schedule-contents > .teamA {
+        text-align: right;
+    }
+    .schedule-contents > .teamB {
+        text-align: left;
+    }
+    .schedule-contents > .scoreboard {
+        display: flex;
+        align-items: center;
+        height: 64px;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 2rem;
+    }
+    .scoreboard > span {
+        width: 100%;
+        text-align: center;
+    }
+    .schedule-contents {
+        font-size: 1.6rem;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    .schedule-time {
+        text-align: right;
+        font-size: 1.4rem;
+    }
+    .bs-callout {
+        padding: 20px;
+        margin: 20px 0;
+        border: 1px solid #eee;
+        border-left-width: 20px;
+        border-radius: 3px;
+    }
+    .bs-callout h4 {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+    .bs-callout p:last-child {
+        margin-bottom: 0;
+    }
+    .bs-callout code {
+        border-radius: 3px;
+    }
+    .bs-callout+.bs-callout {
+        margin-top: -5px;
+    }
+    .bs-callout-default {
+        border-left-color: #777;
+    }
+    .bs-callout-default h4 {
+        color: #777;
+    }
+    .bs-callout-primary {
+        border-left-color: #428bca;
+    }
+    .bs-callout-primary h4 {
+        color: #428bca;
+    }
+    .bs-callout-success {
+        border-left-color: #5cb85c;
+    }
+    .bs-callout-success h4 {
+        color: #5cb85c;
+    }
+    .bs-callout-danger {
+        border-left-color: #d9534f;
+    }
+    .bs-callout-danger h4 {
+        color: #d9534f;
+    }
+    .bs-callout-warning {
+        border-left-color: #f0ad4e;
+    }
+    .bs-callout-warning h4 {
+        color: #f0ad4e;
+    }
+    .bs-callout-info {
+        border-left-color: #5bc0de;
+    }
+    .bs-callout-info h4 {
+        color: #5bc0de;
+    }
+</style>

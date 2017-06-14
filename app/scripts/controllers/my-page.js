@@ -15,12 +15,6 @@ angular.module('SportsGeeksApp')
                 .toString(),
             language: States.language()
         };
-        $rootScope.pref = [];
-        $rootScope.$watch(function () {
-            return $rootScope.receivedData + States.pref();
-        }, function () {
-            $rootScope.pref = States.pref();
-        }, true);
 
         var store = this;
         this.isLoggedIn = function () {
@@ -160,22 +154,32 @@ angular.module('SportsGeeksApp')
                 });
         };
         this.getStatesPref = function () {
-            return States.pref();
+            return States.getPref();
         };
         this.getPrefName = function (objID) {
             var tmp = $rootScope.trimmed;
-            for (var index in tmp.sports) {
-                if (objID == tmp.sports[index].id)
-                    return tmp.sports[index].name;
+            for (var i in tmp.sports) {
+                if (objID === tmp.sports[i].id) {
+                    return tmp.sports[i].name;
+                }
             }
-            for (var index in tmp.leagues) {
-                if (objID == tmp.leagues[index].id)
-                    return tmp.leagues[index].name;
+            for (var j in tmp.leagues) {
+                if (objID === tmp.leagues[j].id) {
+                    return tmp.leagues[j].name;
+                }
             }
-            for (var index in tmp.teams) {
-                if (objID == tmp.teams[index].id)
-                    return tmp.teams[index].name;
+            for (var k in tmp.teams) {
+                if (objID === tmp.teams[k].id) {
+                    return tmp.teams[k].name;
+                }
             }
         };
         this.getUserSettings();
+        setInterval(function () {
+            $rootScope.$apply(function () {
+                console.log('-------------------');
+                console.log(States.getPref());
+                console.log($rootScope.pref);
+            });
+        }, 1000);
     }]);

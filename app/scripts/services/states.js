@@ -8,7 +8,7 @@
  * Factory in the SportsGeeksApp.
  */
 angular.module('SportsGeeksApp')
-    .factory('States', ['$http', '$cookies', 'Config', function ($http, $cookies, Config) {
+    .factory('States', ['$rootScope', '$http', '$cookies', 'Config', function ($rootScope, $http, $cookies, Config) {
         // Service logic
         var currentPage = 1;
         var isLoggedIn = false;
@@ -19,9 +19,33 @@ angular.module('SportsGeeksApp')
         var utcOffset = Config.utcOffset;
         var language = Config.language;
         var date = null;
-        var pref = [];
+        var savedPref = [];
         var states = this;
         var mainData = {};
+
+        var checkPrefKeyword = function (schedule) {
+            if (savedPref) {
+                for (var i in savedPref) {
+                    var prefKeyword = savedPref[i];
+                    if (prefKeyword == schedule.sport ||
+                        prefKeyword == schedule.league ||
+                        prefKeyword == schedule.teamA ||
+                        prefKeyword == schedule.teamA) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        var getDetail = function (keyword, keywordsSet) {
+            for (var i in keywordsSet) {
+                if (keyword == keywordsSet[i].id) {
+                    return keywordsSet[i];
+                }
+            }
+            return false;
+        }
 
         // Public API here
         return {
@@ -43,12 +67,15 @@ angular.module('SportsGeeksApp')
                     utcOffset = _utcOffset;
                     language = _language;
                     date = _date;
-                    pref = _pref;
+                    savedPref = _pref;
+                    for (var i in savedPref) {
+                        $rootScope.pref.push(savedPref[i]);
+                    }
                     isLoggedIn = true;
                     $cookies.put('username', username);
                     $cookies.put('password', password);
                     $cookies.put('token', token);
-                    // console.log('Updated the States');
+                    console.log('Login!');
                 } else {
                     console.log('You are already logged in!');
                 }
@@ -62,7 +89,7 @@ angular.module('SportsGeeksApp')
                     utcOffset = Config.utcOffset;
                     language = Config.language;
                     date = null;
-                    pref = [];
+                    savedPref = [];
                     isLoggedIn = false;
                     $cookies.remove('username');
                     $cookies.remove('password');
@@ -98,7 +125,7 @@ angular.module('SportsGeeksApp')
                                 }
                             })
                             .then(function (res) {
-                                // console.log('Successfully logged in with cookie!');
+                                console.log('Successfully logged in with cookie!');
                                 states.status = res.data;
                                 // console.log(states.status);
                                 username = tmpUsername;
@@ -108,7 +135,10 @@ angular.module('SportsGeeksApp')
                                 utcOffset = states.status.utcOffset;
                                 language = states.status.language;
                                 date = states.status.date;
-                                pref = states.status.pref;
+                                savedPref = states.status.pref;
+                                for (var i in savedPref) {
+                                    $rootScope.pref.push(savedPref[i]);
+                                }
                                 isLoggedIn = true;
                                 $cookies.put('username', username);
                                 $cookies.put('password', password);
@@ -155,11 +185,11 @@ angular.module('SportsGeeksApp')
             date: function () {
                 return date;
             },
-            pref: function () {
-                return pref;
+            getPref: function () {
+                return savedPref;
             },
             setPref: function (_pref) {
-                pref = _pref;
+                savedPref = _pref;
             },
             setMainData: function (_mainData) {
                 mainData = _mainData;
@@ -177,17 +207,52 @@ angular.module('SportsGeeksApp')
                     } else {
                         obj.name = subSet[index].name[language];
                     }
-                    obj.id = subSet[index].id,
-                        obj.type = subSet[index].type,
-                        obj.img = Config.url + subSet[index].img
-                    if (obj.type == 'league') {
+                    obj.id = subSet[index].id;
+                    obj.type = subSet[index].type;
+                    obj.img = Config.url + subSet[index].img;
+                    if (obj.type === 'league') {
                         obj.sport = subSet[index].sport;
-                    } else if (obj.type == 'team') {
+                    } else if (obj.type === 'team') {
                         obj.league = subSet[index].league;
                     }
                     json.push(obj);
                 }
                 return json;
+            },
+
+            getSchedules: function (prefMode) {
+                if (mainData.schedules) {
+                    var schedules = mainData.schedules;
+                    var arr = [];
+
+                    for (var i in schedules) {
+                        if (checkPrefKeyword(schedules[i])) {
+                            schedules[i].pref = true;
+                        } else {
+                            schedules[i].pref = false;
+                        }
+                    }
+
+                    if (prefMode) {
+                        for (var i in schedules) {
+                            if (schedules[i].pref) {
+                                arr.push(schedules[i]);
+                            }
+                        }
+                    } else {
+                        arr = schedules;
+                    }
+
+                    arr.sort(function (a, b) {
+                        return moment(a.datetime)
+                            .valueOf() - moment(b.datetime)
+                            .valueOf();
+                    });
+
+                    return arr;
+                }
+
+                return false;
             }
         };
     }]);

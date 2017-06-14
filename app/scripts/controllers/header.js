@@ -8,11 +8,15 @@
  * Controller of the SportsGeeksApp
  */
 angular.module('SportsGeeksApp')
-    .controller('HeaderCtrl', ['$scope', '$rootScope', '$http', '$route', '$location', 'Config', 'States', 'Translation', function ($scope, $rootScope, $http, $route, $location, Config, States, Translation) {
+    .controller('HeaderCtrl', ['$scope', '$rootScope', '$http', '$route', '$location', '$timeout', 'Config', 'States', 'Translation', function ($scope, $rootScope, $http, $route, $location, $timeout, Config, States, Translation) {
         $rootScope.receivedData = 0;
+        $rootScope.trimmedData = 0;
 
         $rootScope.trimmed = {};
+        $rootScope.schedules = [];
+        $rootScope.pref = [];
         $rootScope.aliasMode = true;
+        $rootScope.prefMode = false;
 
         var store = this;
         States.cookieLogin();
@@ -58,15 +62,24 @@ angular.module('SportsGeeksApp')
         this.tr = function (msg) {
             return Translation.tr(msg, States.language());
         };
-        this.getList = function (aliasMode) {
+        this.getKeywordsList = function (aliasMode) {
             $rootScope.trimmed.sports = States.getTrimmedData('sports', aliasMode, States.language());
             $rootScope.trimmed.leagues = States.getTrimmedData('leagues', aliasMode, States.language());
             $rootScope.trimmed.teams = States.getTrimmedData('teams', aliasMode, States.language());
+            $rootScope.trimmedData++;
+        };
+        this.getSchedulesList = function (prefMode) {
+            $rootScope.schedules = States.getSchedules(prefMode);
         };
         $rootScope.$watch(function () {
             return $rootScope.receivedData + $rootScope.aliasMode + States.language();
         }, function () {
-            store.getList($rootScope.aliasMode);
+            store.getKeywordsList($rootScope.aliasMode);
+        }, true);
+        $rootScope.$watch(function () {
+            return $rootScope.receivedData + $rootScope.trimmedData + $rootScope.prefMode + States.getPref();
+        }, function () {
+            store.getSchedulesList($rootScope.prefMode);
         }, true);
         this.getMainData = function () {
             $http({
@@ -78,14 +91,30 @@ angular.module('SportsGeeksApp')
                     }
                 })
                 .then(function (res) {
-                    console.log("Received Data!");
-                    $rootScope.receivedData += 1;
+                    // console.log("Received Data!");
+                    $rootScope.receivedData++;
                     States.setMainData(res.data);
-                    store.getList($rootScope.aliasMode);
+                    // console.log(res.data);
+                    store.getKeywordsList($rootScope.aliasMode);
+                    store.getSchedulesList($rootScope.prefMode);
                 }, function (res) {
                     console.log('Error while retrieving data!');
                     console.log(res.data);
                 });
+        };
+        this.setAliasMode = function (mode) {
+            if (mode == false) {
+                $rootScope.aliasMode = false;
+            } else {
+                $rootScope.aliasMode = true;
+            }
+        };
+        this.setPrefMode = function (mode) {
+            if (mode == false) {
+                $rootScope.prefMode = false;
+            } else {
+                $rootScope.prefMode = true;
+            }
         };
         this.getMainData();
     }]);

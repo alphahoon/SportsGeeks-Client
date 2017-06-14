@@ -1,7 +1,8 @@
 <h1>{{main.tr('Today\'s Match')}}</h1>
 <div ng-show="main.isLoggedIn()">
-    <h3>{{main.tr('Hello')}}! {{main.username()}}</h3>
+    <h4>  {{main.tr('Hello')}}! {{main.username()}}</h4>
 </div>
 <div>
     <h3 style="text-align:right;">{{main.tr('Current Time')}}: <i>{{main.getCurrentTime()}}</i></h3>
+    <schedule ng-repeat="schedule in schedules_list"></schedule>
 </div>

@@ -9,7 +9,7 @@
 angular.module('SportsGeeksApp')
     .directive('schedule', function () {
         return {
-            template: '<div></div>',
+            templateUrl: 'views/schedule.html',
             restrict: 'E'
         };
     });

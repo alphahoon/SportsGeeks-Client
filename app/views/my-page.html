@@ -89,7 +89,7 @@
         </div>
         <div class="panel-body">
             <div>
-                <span style="font-weight:bold">{{myPage.tr('Your Current Preferences')}} : </span>
+                <span class="currentPref">{{myPage.tr('Your Current Preferences')}}</span>
                 <span ng-if="pref.length == 0">{{myPage.tr('None')}}</span>
                 <button class="btn btn-info btn-xs pref-tag" ng-repeat="obj in pref" ng-click="myPage.removePrefID(obj)">{{myPage.getPrefName(obj)}}</button>
             </div>
@@ -188,5 +188,11 @@
         font-weight: bold;
         margin-left: 10px;
         margin-bottom: 10px;
+    }
+    span.currentPref {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 10px;
+        font-size: 1.6rem;
     }
 </style>

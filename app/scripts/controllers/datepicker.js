@@ -161,15 +161,7 @@ angular.module('SportsGeeksApp')
                     ]
                 },
                 "id": "en-us",
-                "localeID": "en_US",
-                "pluralCat": function (n, opt_precision) {
-                    var i = n | 0;
-                    var vf = getVF(n, opt_precision);
-                    if (i == 1 && vf.v == 0) {
-                        return PLURAL_CATEGORY.ONE;
-                    }
-                    return PLURAL_CATEGORY.OTHER;
-                }
+                "localeID": "en_US"
             },
             kr: {
                 "DATETIME_FORMATS": {
@@ -288,20 +280,17 @@ angular.module('SportsGeeksApp')
                     ]
                 },
                 "id": "ko-kr",
-                "localeID": "ko_KR",
-                "pluralCat": function (n, opt_precision) {
-                    return PLURAL_CATEGORY.OTHER;
-                }
+                "localeID": "ko_KR"
             }
         };
 
         // locale change
         $scope.setLocale = function () {
             angular.copy(locales[States.language()], $locale);
-            if (States.language() == 'en') {
+            if (States.language() === 'en') {
                 $scope.isEnLocale = true;
                 $scope.isKrLocale = false;
-            } else if (States.language() == 'kr') {
+            } else if (States.language() === 'kr') {
                 $scope.isEnLocale = false;
                 $scope.isKrLocale = true;
             }
@@ -316,15 +305,7 @@ angular.module('SportsGeeksApp')
         tomorrow.setDate(tomorrow.getDate() + 1);
         var afterTomorrow = new Date(tomorrow);
         afterTomorrow.setDate(tomorrow.getDate() + 1);
-        $scope.events = [{
-                date: tomorrow,
-                status: 'green'
-            },
-            {
-                date: afterTomorrow,
-                status: 'blue'
-            }
-        ];
+        $scope.events = [];
 
         function getDayClass(data) {
             var date = data.date,

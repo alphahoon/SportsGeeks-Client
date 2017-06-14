@@ -1,1 +1,124 @@
-<li>schedule</li>
+<div class="bs-callout bs-callout-default" ng-class="{ 'bs-callout-danger' : {{schedule.pref}} }">
+    <div class="schedule-breadcrumb">
+        <img ng-src="{{main.getDetail(schedule.sport, trimmed.sports).img}}"></img> {{main.getDetail(schedule.sport, trimmed.sports).name}}
+        <span style="font-weight:bold;"> &nbsp;/&nbsp; </span>
+        <img ng-src="{{main.getDetail(schedule.league, trimmed.leagues).img}}"></img> {{main.getDetail(schedule.league, trimmed.leagues).name}}
+    </div>
+    <div class="row schedule-contents">
+        <div class="col-sm-5 teamA">
+            {{main.getDetail(schedule.teamA, trimmed.teams).name}}&nbsp;&nbsp;
+            <img ng-src="{{main.getDetail(schedule.teamA, trimmed.teams).img}}"></img>
+        </div>
+        <div class="col-sm-2 scoreboard">
+            <span ng-if="schedule.done">
+                {{schedule.scoreA}} - {{schedule.scoreB}}
+            </span>
+            <span ng-if="!schedule.done">
+                -
+            </span>
+        </div>
+        <div class="col-sm-5 teamB">
+            <img ng-src="{{main.getDetail(schedule.teamB, trimmed.teams).img}}"></img>
+            &nbsp;&nbsp;{{main.getDetail(schedule.teamB, trimmed.teams).name}}
+        </div>
+    </div>
+    <div class="schedule-time">
+        {{main.getScheduleTime(schedule.datetime)}}
+    </div>
+</div>
+
+<style>
+    .schedule-breadcrumb > img {
+        width: 2rem;
+        font-size:1.8rem;
+    }
+    .schedule-contents img {
+        width: 100px;
+        height: 100px;
+    }
+    .schedule-contents > .teamA {
+        text-align: right;
+    }
+    .schedule-contents > .teamB {
+        text-align: left;
+    }
+    .schedule-contents > .scoreboard {
+        display: flex;
+        align-items: center;
+        height: 100px;
+        padding-left: 20px;
+        padding-right: 20px;
+        font-size: 3rem;
+    }
+    .scoreboard > span {
+        width: 100%;
+        text-align: center;
+    }
+    .schedule-contents {
+        font-size: 2rem;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+    .schedule-time {
+        text-align: right;
+        font-size: 1.8rem;
+    }
+    .bs-callout {
+        padding: 20px;
+        margin: 20px 0;
+        border: 1px solid #eee;
+        border-left-width: 20px;
+        border-radius: 3px;
+    }
+    .bs-callout h4 {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+    .bs-callout p:last-child {
+        margin-bottom: 0;
+    }
+    .bs-callout code {
+        border-radius: 3px;
+    }
+    .bs-callout+.bs-callout {
+        margin-top: -5px;
+    }
+    .bs-callout-default {
+        border-left-color: #777;
+    }
+    .bs-callout-default h4 {
+        color: #777;
+    }
+    .bs-callout-primary {
+        border-left-color: #428bca;
+    }
+    .bs-callout-primary h4 {
+        color: #428bca;
+    }
+    .bs-callout-success {
+        border-left-color: #5cb85c;
+    }
+    .bs-callout-success h4 {
+        color: #5cb85c;
+    }
+    .bs-callout-danger {
+        border-left-color: #d9534f;
+    }
+    .bs-callout-danger h4 {
+        color: #d9534f;
+    }
+    .bs-callout-warning {
+        border-left-color: #f0ad4e;
+    }
+    .bs-callout-warning h4 {
+        color: #f0ad4e;
+    }
+    .bs-callout-info {
+        border-left-color: #5bc0de;
+    }
+    .bs-callout-info h4 {
+        color: #5bc0de;
+    }
+</style>
