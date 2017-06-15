@@ -30,7 +30,7 @@ angular.module('SportsGeeksApp')
                     if (prefKeyword == schedule.sport ||
                         prefKeyword == schedule.league ||
                         prefKeyword == schedule.teamA ||
-                        prefKeyword == schedule.teamA) {
+                        prefKeyword == schedule.teamB) {
                         return true;
                     }
                 }
@@ -91,6 +91,7 @@ angular.module('SportsGeeksApp')
                     date = null;
                     savedPref = [];
                     isLoggedIn = false;
+                    $rootScope.pref = [];
                     $cookies.remove('username');
                     $cookies.remove('password');
                     $cookies.remove('token');

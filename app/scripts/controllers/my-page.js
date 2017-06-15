@@ -149,6 +149,10 @@ angular.module('SportsGeeksApp')
                     // console.log('Successfully updated preferences!');
                     // store.status = res.data;
                     States.setPref(res.data.pref);
+                    var savedPref = States.getPref();
+                    for (var i in savedPref) {
+                        $rootScope.pref.push(savedPref[i]);
+                    }
                     // console.log(store.status);
                 }, function (res) {
                     console.log('Error while updating preferences!');
